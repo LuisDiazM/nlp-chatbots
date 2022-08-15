@@ -11,7 +11,8 @@
             "mode": "auto",
             "program": "${fileDirname}",
             "env": {
-                "API_KEY":"hqwkkah*56hfh"
+                "API_KEY":"hqwkkah*56hfh",
+                "MONGO_URL":"mongodb://localhost:27017"
             }
         }
     ]

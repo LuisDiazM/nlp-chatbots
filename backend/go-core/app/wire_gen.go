@@ -6,9 +6,21 @@
 
 package app
 
+import (
+	"github.com/LuisDiazM/goCore/domain/usecases"
+	"github.com/LuisDiazM/goCore/infraestructure/databases"
+)
+
+import (
+	_ "github.com/LuisDiazM/goCore/docs"
+)
+
 // Injectors from wire.go:
 
 func CreateApp() *Application {
-	application := NewApplication()
+	databaseGateway := databases.NewDatabaseGatewayImp()
+	channelsUsecase := usecases.NewChannelUsecase(databaseGateway)
+	trainingUseCase := usecases.NewTrainingUsecase(databaseGateway)
+	application := NewApplication(databaseGateway, channelsUsecase, trainingUseCase)
 	return application
 }

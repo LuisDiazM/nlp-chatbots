@@ -18,7 +18,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Hibot"
+                    "Index"
                 ],
                 "summary": "Index",
                 "responses": {
@@ -36,6 +36,102 @@
                     }
                 }
             }
+        },
+        "/training-data": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "This endpoint does not do nothing",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Training"
+                ],
+                "parameters": [
+                    {
+                        "description": "training data",
+                        "name": "default",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TrainingInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ObjectCreated"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Intent": {
+            "type": "object",
+            "properties": {
+                "patterns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "response": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ObjectCreated": {
+            "type": "object",
+            "properties": {
+                "id": {}
+            }
+        },
+        "models.TrainingInfo": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "intents": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Intent"
+                    }
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "x-api-key",
+            "in": "header"
         }
     }
 }

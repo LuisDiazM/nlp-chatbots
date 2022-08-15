@@ -19,10 +19,12 @@ func enableCors(responseWriter *http.ResponseWriter) {
 }
 
 func (app Application) Setup() {
+	app.database.Setup()
 	app.Router.Use(app.route)
 	app.Router.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
 	goCore := app.Router.PathPrefix("/api/v1").Subrouter()
 	goCore.Path("/").HandlerFunc(app.Index).Methods(http.MethodGet, http.MethodOptions)
+	goCore.Path("/training-data").HandlerFunc(app.SaveTrainingData).Methods(http.MethodPost, http.MethodOptions)
 }
 
 func (app Application) route(next http.Handler) http.Handler {
@@ -42,4 +44,8 @@ func (app Application) route(next http.Handler) http.Handler {
 		}
 		next.ServeHTTP(responseWriter, request)
 	})
+}
+
+func (app Application) Shutdown() {
+	app.database.Shutdown()
 }

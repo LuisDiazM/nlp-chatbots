@@ -6,6 +6,6 @@ package app
 import "github.com/google/wire"
 
 func CreateApp() *Application {
-	wire.Build(appProvider)
+	wire.Build(appProvider, databaseProvider, channelUsecaseProvider, trainingUsecaseProvider)
 	return new(Application)
 }

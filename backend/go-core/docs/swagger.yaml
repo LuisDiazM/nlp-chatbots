@@ -1,4 +1,33 @@
 basePath: /api/v1
+definitions:
+  models.Intent:
+    properties:
+      patterns:
+        items:
+          type: string
+        type: array
+      response:
+        items:
+          type: string
+        type: array
+      tag:
+        type: string
+    type: object
+  models.ObjectCreated:
+    properties:
+      id: {}
+    type: object
+  models.TrainingInfo:
+    properties:
+      id:
+        type: string
+      intents:
+        items:
+          $ref: '#/definitions/models.Intent'
+        type: array
+      user_id:
+        type: string
+    type: object
 info:
   contact: {}
   description: This microservice connects the front-end and is the core of the project
@@ -23,5 +52,37 @@ paths:
             type: string
       summary: Index
       tags:
-      - Hibot
+      - Index
+  /training-data:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint does not do nothing
+      parameters:
+      - description: training data
+        in: body
+        name: default
+        required: true
+        schema:
+          $ref: '#/definitions/models.TrainingInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ObjectCreated'
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Training
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: x-api-key
+    type: apiKey
 swagger: "2.0"
