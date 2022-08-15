@@ -19,7 +19,7 @@ type TrainingInfo struct {
 }
 
 type Intent struct {
-	Patterns []string `bson:"patterns" json:"patterns,omitempty"`
-	Response []string `bson:"response" json:"response,omitempty"`
-	Tag      string   `bson:"tag" json:"tag,omitempty"`
+	Patterns  []string `bson:"patterns" json:"patterns,omitempty"`
+	Responses []string `bson:"responses" json:"responses"`
+	Tag       string   `bson:"tag" json:"tag,omitempty"`
 }
