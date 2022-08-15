@@ -47,14 +47,16 @@ class NeuralNetImp:
                 print(
                     f"epoch {epoch+100}/{self.num_epochs}, loss={loss.item()}")
 
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        model_uid = uuid.uuid4()
-        model_path = os.path.join(BASE_DIR, "bin", f"{model_uid}.pth")
-
         data_model = self.__generate_data_model(model, preprocess_training)
+        model_path = self.__generate_model_path()
 
         torch.save(data_model.dict(), model_path)
         return model_path
+    
+    def __generate_model_path(self)->str:
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        model_uid = uuid.uuid4()
+        return os.path.join(BASE_DIR, "bin", f"{model_uid}.pth")
 
     def __generate_data_model(self, model: NeuralNet, preprocess_training: PreprocessTrainingModel) -> ModelTrained:
         data_model = {"model_state": model.state_dict(),
