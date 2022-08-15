@@ -1,0 +1,2 @@
+DATABASE_TRAINING = "trainings"
+COLLECTION_TRAINING = "trainingInfo"
