@@ -1,5 +1,5 @@
 from domain.usecases.training_usecase import TrainingUsecase
 
 usecase = TrainingUsecase()
-model = usecase.get_training_data("62f9b0c2da227b1a1066dee4")
-print(model)
+model_path = usecase.generate_model("62fab4f3b11e482d091a6b09")
+print(model_path)
