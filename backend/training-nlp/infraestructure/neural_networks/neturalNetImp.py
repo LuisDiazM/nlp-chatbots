@@ -15,12 +15,9 @@ class NeuralNetImp:
     learning_rate = 0.001
     num_epochs = 1000
 
-    def __init__(self) -> None:
-        pass
-
     def run_nn(self, preprocess_training: PreprocessTrainingModel) -> str:
         data_set = self.__prepare_dataset(
-            preprocess_training.X_train, preprocess_training.y_train)
+            preprocess_training.x_train, preprocess_training.y_train)
         train_loader = self.__prepare_train_loader(data_set)
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         model = NeuralNet(input_size=preprocess_training.input_size,
@@ -67,8 +64,8 @@ class NeuralNetImp:
                       "tags": preprocess_training.tags}
         return ModelTrained(**data_model)
 
-    def __prepare_dataset(self, X_train, y_train) -> ChatDataSet:
-        return ChatDataSet(X_train=X_train, y_train=y_train)
+    def __prepare_dataset(self, x_train, y_train) -> ChatDataSet:
+        return ChatDataSet(x_train=x_train, y_train=y_train)
 
     def __prepare_train_loader(self, dataset: ChatDataSet) -> DataLoader:
         return DataLoader(dataset=dataset, batch_size=self.batch_size, shuffle=True, num_workers=0)

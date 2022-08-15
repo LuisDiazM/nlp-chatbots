@@ -4,7 +4,7 @@ import numpy as np
 
 
 class PreprocessTrainingModel(BaseModel):
-    X_train: List[Any] = []
+    x_train: List[Any] = []
     y_train: List[int] = []
     all_words: List[str] = []
     tags: list = []

@@ -35,19 +35,19 @@ class PreprocessingNLP:
         self.tags = sorted(set(self.tags))
 
         ## training
-        X_train = []
+        x_train = []
         y_train = []
 
         for (pattern_sentence, tag) in xy:
             bag = self.__bag_of_words(pattern_sentence, self.all_words)
-            X_train.append(bag)
+            x_train.append(bag)
             label = self.tags.index(tag)
             y_train.append(label)
 
         self.input_len = len(self.all_words)
         self.output_len = len(self.tags)
 
-        return X_train, y_train
+        return x_train, y_train
 
     def __tokenization(self, sentence: str) -> List[str]:
         return nltk.word_tokenize(sentence)
