@@ -9,7 +9,10 @@
       "type": "python",
       "request": "launch",
       "program": "${file}",
-      "env": {"MONGO_URL": "mongodb://localhost:27017"},
+      "env": {
+        "MONGO_URL": "mongodb://localhost:27017",
+        "NATS_URL": "nats://localhost:4222"
+      },
       "console": "integratedTerminal",
       "justMyCode": true
     },

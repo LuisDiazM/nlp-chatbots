@@ -18,3 +18,5 @@ class MongoImp(DatabaseGateway):
             database).get_collection(collection)
         return collection.find_one({"_id": ObjectId(id)})
         
+    def shutdown(self):
+        self.client.close()

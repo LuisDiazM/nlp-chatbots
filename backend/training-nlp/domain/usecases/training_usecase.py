@@ -7,10 +7,10 @@ from domain.models.preprocessing_training_model import PreprocessTrainingModel
 
 
 class TrainingUsecase:
-    def __init__(self) -> None:
-        self.database_gateway = MongoImp()
-        self.preprocess_nlp = PreprocessingNLP()
-        self.neural_net = NeuralNetImp()
+    def __init__(self, database_gateway: MongoImp, preprocess_nlp: PreprocessingNLP, neural_net: NeuralNetImp) -> None:
+        self.database_gateway = database_gateway
+        self.preprocess_nlp = preprocess_nlp
+        self.neural_net = neural_net
 
     def generate_model(self, id: str) -> str:
         preprocess_data = self.__preprocess_data(id)
