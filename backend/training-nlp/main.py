@@ -14,15 +14,15 @@ async def main():
     preprocess_nlp = PreprocessingNLP()
     neural_net = NeuralNetImp()
 
-    controllersInstance = ControllerSubscriptions(
+    controllers_instance = ControllerSubscriptions(
         database, preprocess_nlp, neural_net)
     
-    natsInstance = NatsImp()
-    await natsInstance.set_up()
-    client = natsInstance.client
+    nats_instance = NatsImp()
+    await nats_instance.set_up()
+    client = nats_instance.client
 
     #subscriptors
-    await client.subscribe(SUBSCRIPTION_TRAINING_MODEL, cb=controllersInstance.training_model_handler)
+    await client.subscribe(SUBSCRIPTION_TRAINING_MODEL, cb=controllers_instance.training_model_handler)
 
 
 if __name__ == '__main__':
