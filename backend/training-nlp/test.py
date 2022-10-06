@@ -1,14 +1,14 @@
 import asyncio
 import json
+from helpers.constants import SUBSCRIPTION_TRAINING_MODEL_COMMAND
 import nats
-from nats.errors import ConnectionClosedError, TimeoutError, NoServersError
 
 async def main():
 
     nc = await nats.connect("nats://localhost:4222")
 
    
-    await nc.publish("training.chatbots", json.dumps({"id": "62fab4f3b11e482d091a6b05"}).encode())
+    await nc.publish(SUBSCRIPTION_TRAINING_MODEL_COMMAND, json.dumps({"id": "62fab4f3b11e482d091a6b05"}).encode())
 
 
     # Terminate connection to NATS.

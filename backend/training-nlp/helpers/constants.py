@@ -1,4 +1,5 @@
 DATABASE_TRAINING = "trainings"
 COLLECTION_TRAINING = "trainingInfo"
+COLLECTION_MODELS = "models"
 
 SUBSCRIPTION_TRAINING_MODEL_COMMAND = "command.training.chatbots"

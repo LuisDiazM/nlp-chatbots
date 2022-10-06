@@ -1,19 +1,21 @@
 import asyncio
-
-from domain.usecases.training_usecase import TrainingUsecase
+from dependency_injector.wiring import Provide, inject
 
 from app.di import Container
-from helpers.constants import SUBSCRIPTION_TRAINING_MODEL_COMMAND
 from app.controller.handlers import ControllerSubscriptions
+from domain.usecases.storage_models_usecase import StorageModelsUsecase
+from domain.usecases.training_usecase import TrainingUsecase
+from helpers.constants import SUBSCRIPTION_TRAINING_MODEL_COMMAND
 from infraestructure.messaging.natsImp import NatsImp
-from dependency_injector.wiring import Provide, inject
 
 
 @inject
-async def main(training_usecase: TrainingUsecase = Provide[Container.training_usecase]):
+async def main(training_usecase: TrainingUsecase = Provide[Container.training_usecase],
+               storage_usecase: StorageModelsUsecase = Provide[Container.storage_usecase]):
 
-    controllers_instance = ControllerSubscriptions(training_usecase)
-    
+    controllers_instance = ControllerSubscriptions(
+        training_usecase, storage_usecase)
+
     # NATS client listen connections
     nats_instance = NatsImp()
     await nats_instance.set_up()

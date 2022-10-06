@@ -20,3 +20,8 @@ class MongoImp(DatabaseGateway):
         
     def shutdown(self):
         self.client.close()
+    
+    def insert_one(self, database:str, collection:str, data:Dict) -> None:
+        collection = self.client[database][collection]
+        collection.insert_one(data)
+        

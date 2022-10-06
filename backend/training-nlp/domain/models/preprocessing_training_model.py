@@ -1,6 +1,5 @@
 from typing import Any, List
 from pydantic import BaseModel
-import numpy as np
 
 
 class PreprocessTrainingModel(BaseModel):

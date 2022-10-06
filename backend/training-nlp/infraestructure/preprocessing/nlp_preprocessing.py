@@ -2,7 +2,7 @@ from typing import List
 import nltk
 from nltk.stem import PorterStemmer
 import numpy as np
-from domain.models.training_model import TrainingModel
+from domain.models.dto.training_model import TrainingModel
 
 class PreprocessingNLP:
     """
