@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./backend/training-nlp",
+        "./backend/core-ia-models"
+    ]
+}
