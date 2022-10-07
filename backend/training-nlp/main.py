@@ -5,7 +5,7 @@ from app.di import Container
 from app.controller.handlers import ControllerSubscriptions
 from domain.usecases.storage_models_usecase import StorageModelsUsecase
 from domain.usecases.training_usecase import TrainingUsecase
-from helpers.constants import SUBSCRIPTION_TRAINING_MODEL_COMMAND
+from helpers.constants import SUBSCRIPTION_TRAINING_MODEL_COMMAND, QUEUE_TRAINING_NLP
 from infraestructure.messaging.natsImp import NatsImp
 
 
@@ -22,7 +22,7 @@ async def main(training_usecase: TrainingUsecase = Provide[Container.training_us
     client = nats_instance.client
 
     # subscriptors
-    await client.subscribe(SUBSCRIPTION_TRAINING_MODEL_COMMAND, cb=controllers_instance.training_model_handler)
+    await client.subscribe(SUBSCRIPTION_TRAINING_MODEL_COMMAND, queue=QUEUE_TRAINING_NLP, cb=controllers_instance.training_model_handler)
 
 
 if __name__ == '__main__':
