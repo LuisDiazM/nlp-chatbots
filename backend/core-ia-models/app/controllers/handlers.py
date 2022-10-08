@@ -1,24 +1,23 @@
-from dependency_injector.wiring import Provide, inject
+from typing import Any, Coroutine
 import json
 
-from app.core_di import Container
+from domain.models.test_chatbot_request import TestChatbotRequest
 from domain.usecases.chatbot_responses_usecase import ChatbotResponseUsecase
 
 
 class ChatbotResponseHandler:
 
-    @inject
-    def __init__(self, chatbot_response_usecase: ChatbotResponseUsecase = Provide[Container.chatbot_usecase]) -> None:
+    def __init__(self, chatbot_response_usecase: ChatbotResponseUsecase, nats_client:Coroutine[Any, Any, None]) -> None:
         self.chatbot_response_usecase = chatbot_response_usecase
-        super().__init__()
+        self.nats_client = nats_client
 
-    def chatbot_response_handler(self):
-        # subject = msg.subject
-        # reply = msg.reply
-        # data = json.loads(msg.data.decode())
-        # print("Received a message on '{subject} {reply}': {data}".format(
-        #     subject=subject, reply=reply, data=data))
-        # request_data = TestChatbotRequest(**data)
-        response = self.chatbot_response_usecase.chatbot_response("6340402b15312bb8a5d9e8ca","tell me a joke")
-        print(response)
-           
+    async def chatbot_response_handler(self, msg):
+        subject = msg.subject
+        reply = msg.reply
+        data = json.loads(msg.data.decode())
+        print("Received a message on '{subject} {reply}': {data}".format(
+            subject=subject, reply=reply, data=data))
+        request_data = TestChatbotRequest(**data)
+        response = self.chatbot_response_usecase.chatbot_response(
+            request_data.model_id, request_data.sentence)
+        await self.nats_client.publish(reply, f'{response}'.encode())

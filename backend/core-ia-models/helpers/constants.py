@@ -2,5 +2,5 @@ DATABASE_TRAINING = "trainings"
 COLLECTION_TRAINING = "trainingInfo"
 COLLECTION_MODELS = "models"
 
-QUEUE_TRAINING_NLP = "training.nlp" 
-SUBSCRIPTION_TRAINING_MODEL_COMMAND = "command.training.chatbots"
+QUEUE_CORE_IA = "core.ia.chatbots" 
+SUBSCRIPTION_CHATBOT_RESPONSE = "query.response.chatbots"

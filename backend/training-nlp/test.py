@@ -8,7 +8,15 @@ async def main():
     nc = await nats.connect("nats://localhost:4222")
 
    
+    # Send the request
     await nc.publish(SUBSCRIPTION_TRAINING_MODEL_COMMAND, json.dumps({"id": "62fab4f3b11e482d091a6b05"}).encode())
+    
+    try:
+        msg = await nc.request("query.response.chatbots", json.dumps({"model_id": "6340402b15312bb8a5d9e8ca", "sentence": "thanks "}).encode(), timeout=1)
+        # Use the response
+        print("Reply:", msg)
+    except asyncio.TimeoutError:
+        print("Timed out waiting for response")
 
 
     # Terminate connection to NATS.
