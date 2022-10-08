@@ -16,16 +16,9 @@ class DatabaseGateway(ABC):
     def find_by_id(self, id: str, database: str, collection: str) -> Dict:
         pass
 
-    @abstractmethod
-    def insert_one(self, database:str, collection:str, data:Dict) -> None:
-        pass
-
 
 class StorageGateway(ABC):
     
-    @abstractmethod
-    def upload(self, path_file: str) -> str:
-        pass
 
     @abstractmethod
     def download(self, object_name:str) -> None:
