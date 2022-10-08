@@ -9,8 +9,8 @@ class ChatbotResponseHandler:
 
     @inject
     def __init__(self, chatbot_response_usecase: ChatbotResponseUsecase = Provide[Container.chatbot_usecase]) -> None:
-        super.__init__()
         self.chatbot_response_usecase = chatbot_response_usecase
+        super().__init__()
 
     def chatbot_response_handler(self):
         # subject = msg.subject

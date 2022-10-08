@@ -1,6 +1,5 @@
 from domain.usecases.chatbot_responses_usecase import ChatbotResponseUsecase
 from infraestructure.storage.s3Imp import S3Imp
-from infraestructure.neural_networks.neturalNetImp import NeuralNetImp
 from infraestructure.preprocessing.nlp_preprocessing import PreprocessingNLP
 from infraestructure.database.mongoImp import MongoImp
 from dependency_injector import containers, providers
@@ -13,7 +12,6 @@ class Container(containers.DeclarativeContainer):
     # infraestructure
     database_client = providers.Singleton(MongoImp)
     preprocess_nlp = providers.Singleton(PreprocessingNLP)
-    chatbots_neural_network = providers.Singleton(NeuralNetImp)
     storage_client = providers.Singleton(S3Imp)
 
     # usecases
