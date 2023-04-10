@@ -12,9 +12,9 @@
       "env": {
         "MONGO_URL": "mongodb://localhost:27017",
         "NATS_URL": "nats://localhost:4222",
-        "ACCESS_KEY": "<YOUR-ACCESS-KEY>",
-        "SECRET_ACCESS_KEY": "<YOUR-SECRET-ACCESS-KEY>",
-        "BUCKET_NAME": "<YOUR-BUCKET-NAME>"
+        "ACCESS_KEY": "AKIAZ6FBJII2EOOM4PMV",
+        "SECRET_ACCESS_KEY": "wPmbqjG3xDxk8NHRkjMSOLtFrexBF6XfIzlIYwfF",
+        "BUCKET_NAME": "nlp-chatbots-models"
       },
       "console": "integratedTerminal",
       "justMyCode": true
