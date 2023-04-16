@@ -7,6 +7,6 @@ type Intent struct {
 }
 
 type TrainingInfo struct {
-	UserId  string   `json:"user_id,omitempty" bson:"userId"`
-	Intents []Intent `json:"intents,omitempty" bson:"intents"`
+	UserId  string   `json:"user_id,omitempty" bson:"userId" binding:"required"`
+	Intents []Intent `json:"intents,omitempty" bson:"intents" binding:"required"`
 }

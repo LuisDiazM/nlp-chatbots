@@ -6,5 +6,6 @@ import (
 )
 
 type TrainingRepository interface {
-	GetModelById(id string, ctx context.Context) *entities.TrainingInfo
+	GetTrainingModelById(id string, ctx context.Context) *entities.TrainingInfo
+	InsertTrainingModel(data entities.TrainingInfo, ctx context.Context) *interface{}
 }

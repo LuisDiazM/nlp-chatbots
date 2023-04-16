@@ -15,6 +15,9 @@ func NewTrainingUsecase(trainingRepository repositories.TrainingRepository) *Tra
 }
 
 func (usecase *TrainingUsecase) GetModelById(id string, ctx context.Context) *entities.TrainingInfo {
-	return usecase.TrainingRepository.GetModelById(id, ctx)
+	return usecase.TrainingRepository.GetTrainingModelById(id, ctx)
+}
 
+func (usecase *TrainingUsecase) InsertModel(data entities.TrainingInfo, ctx context.Context) *interface{} {
+	return usecase.TrainingRepository.InsertTrainingModel(data, ctx)
 }

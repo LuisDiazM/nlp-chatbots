@@ -47,3 +47,12 @@ func (database *DatabaseImp) FindOne(collection *mongo.Collection, ctx *context.
 	cursor := collection.FindOne(*ctx, filter)
 	return cursor
 }
+
+func (database *DatabaseImp) InsertOne(collection *mongo.Collection, ctx *context.Context, data any) *mongo.InsertOneResult {
+	result, err := collection.InsertOne(*ctx, data)
+	if err != nil {
+		log.Println("mongo.go -> InsertOne", err)
+		return nil
+	}
+	return result
+}

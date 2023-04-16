@@ -15,5 +15,6 @@ func NewTrainingRouter(group *gin.RouterGroup, databaseGateway database.Database
 	controller := &controllers.TrainingController{
 		TrainingModelUsecase: *trainingusecase.NewTrainingUsecase(repository),
 	}
-	group.GET("/training-model/:id", controller.ModelInfo)
+	group.GET("/training-model/:id", controller.TrainingModelInfo)
+	group.POST("/training-model", controller.InsertTrainingModelInfo)
 }
