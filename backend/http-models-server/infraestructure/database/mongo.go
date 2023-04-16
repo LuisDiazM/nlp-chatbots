@@ -37,15 +37,13 @@ func (database *DatabaseImp) Collection(databaseName string, colName string) *mo
 	return database.Client.Database(databaseName).Collection(colName)
 }
 
-func (database *DatabaseImp) FindOne(collection *mongo.Collection, ctx *context.Context, id string) *interface{} {
+func (database *DatabaseImp) FindOne(collection *mongo.Collection, ctx *context.Context, id string) *mongo.SingleResult {
 	objectId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		log.Println("mongo -> FindOne", err)
 		return nil
 	}
 	filter := bson.M{"_id": objectId}
-	var data interface{}
 	cursor := collection.FindOne(*ctx, filter)
-	cursor.Decode(&data)
-	return &data
+	return cursor
 }

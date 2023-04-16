@@ -2,8 +2,6 @@ package repositories
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 	"http-models-server/domain/usecases/training-usecase/entities"
 	"http-models-server/domain/usecases/training-usecase/repositories"
 	"log"
@@ -28,18 +26,12 @@ func NewTrainingRepository(db database.DatabaseImp) repositories.TrainingReposit
 
 func (repository *TrainingRepository) GetModelById(id string, ctx context.Context) *entities.TrainingInfo {
 	collection := repository.Database.Collection(databaseName, collectionName)
+	var trainingInfo *entities.TrainingInfo
 	data := repository.Database.FindOne(collection, &ctx, id)
-	fmt.Println(*data)
-	var trainingInfo entities.TrainingInfo
-	bytesData, err := json.Marshal(*data)
+	err := data.Decode(&trainingInfo)
 	if err != nil {
+		log.Println(err)
 		return nil
 	}
-	err = json.Unmarshal(bytesData, &trainingInfo)
-	if err != nil {
-		log.Println("Repository GetModelById", err)
-		return nil
-	}
-
-	return &trainingInfo
+	return trainingInfo
 }
