@@ -12,8 +12,8 @@
       "env": {
         "MONGO_URL": "mongodb://localhost:27017",
         "NATS_URL": "nats://localhost:4222",
-        "ACCESS_KEY": "AKIAZ6FBJII2EOOM4PMV",
-        "SECRET_ACCESS_KEY": "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",
+        "ACCESS_KEY": "<AWS_ACCESS_KEY>",
+        "SECRET_ACCESS_KEY": "<AWS_SECRET_KEY>",
         "BUCKET_NAME": "nlp-chatbots-models"
       },
       "console": "integratedTerminal",
