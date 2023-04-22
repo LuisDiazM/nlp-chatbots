@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 
-from helpers.constants import DATABASE_TRAINING, COLLECTION_MODELS
+from domain.helpers.constants import DATABASE_TRAINING, COLLECTION_MODELS
 
 from domain.models.dto.models import ModelsDTO
 

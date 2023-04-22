@@ -1,7 +1,7 @@
 from infraestructure.database.mongoImp import MongoImp
 from infraestructure.preprocessing.nlp_preprocessing import PreprocessingNLP
 from infraestructure.neural_networks.neturalNetImp import NeuralNetImp
-from helpers.constants import DATABASE_TRAINING, COLLECTION_TRAINING
+from domain.helpers.constants import DATABASE_TRAINING, COLLECTION_TRAINING
 from domain.models.dto.training_model import TrainingModel
 from domain.models.preprocessing_training_model import PreprocessTrainingModel
 

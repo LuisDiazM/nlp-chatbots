@@ -1,13 +1,17 @@
 import asyncio
-from dependency_injector.wiring import Provide, inject
+from cmd.config import set_env
+from cmd.di import Container
 
-from app.di import Container
-from app.controller.handlers import ControllerSubscriptions
+from dependency_injector.wiring import Provide, inject
+from domain.helpers.constants import (QUEUE_TRAINING_NLP,
+                                      SUBSCRIPTION_TRAINING_MODEL_COMMAND)
 from domain.usecases.storage_models_usecase import StorageModelsUsecase
 from domain.usecases.training_usecase import TrainingUsecase
-from helpers.constants import SUBSCRIPTION_TRAINING_MODEL_COMMAND, QUEUE_TRAINING_NLP
+from infraestructure.messaging.controller.handlers import \
+    ControllerSubscriptions
 from infraestructure.messaging.natsImp import NatsImp
 
+set_env()
 
 @inject
 async def main(training_usecase: TrainingUsecase = Provide[Container.training_usecase],

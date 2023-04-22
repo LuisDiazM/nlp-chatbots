@@ -1,6 +1,6 @@
 import asyncio
 import json
-from helpers.constants import SUBSCRIPTION_TRAINING_MODEL_COMMAND
+from domain.helpers.constants import SUBSCRIPTION_TRAINING_MODEL_COMMAND
 import nats
 
 async def main():
@@ -9,15 +9,15 @@ async def main():
 
    
     # Send the request
-    # await nc.publish(SUBSCRIPTION_TRAINING_MODEL_COMMAND, json.dumps({"id": "62fab4f3b11e482d091a6b05"}).encode())
+    await nc.publish(SUBSCRIPTION_TRAINING_MODEL_COMMAND, json.dumps({"id": "62fab4f3b11e482d091a6b05"}).encode())
     
-    try:
-        msg = await nc.request("query.response.chatbots", json.dumps({"model_id": "6340402b15312bb8a5d9e8ca", "sentence": "Hi rats "}).encode(), timeout=3)
-        # Use the response
-        print("Reply:", msg)
-        pass
-    except asyncio.TimeoutError:
-        print("Timed out waiting for response")
+    # try:
+    #     msg = await nc.request("query.response.chatbots", json.dumps({"model_id": "6340402b15312bb8a5d9e8ca", "sentence": "Hi rats "}).encode(), timeout=3)
+    #     # Use the response
+    #     print("Reply:", msg)
+    #     pass
+    # except asyncio.TimeoutError:
+    #     print("Timed out waiting for response")
 
 
     # Terminate connection to NATS.
