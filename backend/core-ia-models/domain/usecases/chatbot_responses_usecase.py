@@ -2,7 +2,7 @@ import random
 import torch
 from domain.models.dto.training_model import TrainingModel
 from domain.models.dto.models import ModelsDTO
-from helpers.constants import COLLECTION_MODELS, COLLECTION_TRAINING, DATABASE_TRAINING
+from domain.helpers.constants import COLLECTION_MODELS, COLLECTION_TRAINING, DATABASE_TRAINING
 from infraestructure.database.mongoImp import MongoImp
 from infraestructure.neural_networks.nn_models.nn_model import NeuralNet
 from infraestructure.preprocessing.nlp_preprocessing import PreprocessingNLP
