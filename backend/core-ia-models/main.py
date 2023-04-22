@@ -1,12 +1,13 @@
 import asyncio
-import json
 from dependency_injector.wiring import Provide, inject
-from app.controllers.handlers import ChatbotResponseHandler
-from app.core_di import Container
+from cmd.config import set_env
+from cmd.core_di import Container
 from domain.usecases.chatbot_responses_usecase import ChatbotResponseUsecase
-from helpers.constants import QUEUE_CORE_IA, SUBSCRIPTION_CHATBOT_RESPONSE
+from domain.helpers.constants import QUEUE_CORE_IA, SUBSCRIPTION_CHATBOT_RESPONSE
+from infraestructure.messaging.controllers.handlers import ChatbotResponseHandler
 from infraestructure.messaging.natsImp import NatsImp
 
+set_env()
 
 @inject
 async def main(chatbot_usecase: ChatbotResponseUsecase = Provide[Container.chatbot_usecase]):
