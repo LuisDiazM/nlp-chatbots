@@ -1,7 +1,7 @@
 import json
 
 from domain.usecases.storage_models_usecase import StorageModelsUsecase
-from app.di import Container
+from cmd.di import Container
 from domain.models.train_chatbot_request import TrainChatbotRequest
 from domain.usecases.training_usecase import TrainingUsecase
 from dependency_injector.wiring import Provide, inject
