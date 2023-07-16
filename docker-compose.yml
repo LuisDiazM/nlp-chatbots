@@ -1,0 +1,27 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo:5.0
+    restart: always
+    mem_limit: 512m
+    cpus: 0.25
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: fhasgkr867fa654
+    ports:
+      - 27017:27017
+    volumes:
+      - ./volumes/mongodb:/data/db
+  
+  http-server:
+    build: backend/http-models-server/.
+    image: http-model-server:v1
+    restart: always
+    cpus: 0.5
+    ports:
+      - 8080:8080
+    depends_on: 
+      - mongo
