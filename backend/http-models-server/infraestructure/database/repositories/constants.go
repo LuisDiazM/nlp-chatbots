@@ -1,8 +1,6 @@
 package repositories
 
 const (
-	trainingDatabaseName = "trainings"
-
-	trainingCollectionName = "trainingInfo"
-	modelsCollectionName   = "models"
+	trainingDatabaseName   = "training"
+	trainingCollectionName = "nluIntents"
 )

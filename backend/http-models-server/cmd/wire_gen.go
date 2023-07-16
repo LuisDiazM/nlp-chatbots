@@ -8,8 +8,10 @@ package cmd
 
 import (
 	"http-models-server/cmd/config"
+	"http-models-server/domain/usecases/trainingUsecase"
 	"http-models-server/infraestructure/app"
 	"http-models-server/infraestructure/database"
+	"http-models-server/infraestructure/database/repositories"
 	"http-models-server/infraestructure/server"
 )
 
@@ -18,7 +20,9 @@ import (
 func CreateApp() *app.Application {
 	engine := server.NewServer()
 	env := config.NewEnvironmentsSpecification()
-	databaseImp := database.NewDatabaseImplementation()
-	application := app.NewApplication(engine, env, databaseImp)
+	databaseImp := database.NewDatabaseImplementation(env)
+	trainingRepository := repositories.NewTrainingRepository(databaseImp)
+	trainingUsecase := trainingusecase.NewTrainingUsecase(trainingRepository)
+	application := app.NewApplication(engine, env, databaseImp, trainingUsecase)
 	return application
 }

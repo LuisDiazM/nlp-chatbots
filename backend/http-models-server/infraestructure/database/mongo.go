@@ -17,20 +17,16 @@ type DatabaseImp struct {
 	Client *mongo.Client
 }
 
-func NewDatabaseImplementation() *DatabaseImp {
-	return &DatabaseImp{}
-}
-
-func (database *DatabaseImp) Setup(environment config.Env) {
-	var err error
+func NewDatabaseImplementation(environment *config.Env) *DatabaseImp {
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	opt := options.Client()
-	opt.SetMaxPoolSize(uint64(environment.MONGO_POOL_SIZE))
+	opt.SetMaxPoolSize(environment.MONGO_POOL_SIZE)
 	opt.ApplyURI(environment.MONGO_URL)
-	database.Client, err = mongo.Connect(ctx, opt)
+	client, err := mongo.Connect(ctx, opt)
 	if err != nil {
 		log.Fatal(err)
 	}
+	return &DatabaseImp{Client: client}
 }
 
 func (database *DatabaseImp) Collection(databaseName string, colName string) *mongo.Collection {
@@ -55,4 +51,34 @@ func (database *DatabaseImp) InsertOne(collection *mongo.Collection, ctx *contex
 		return nil
 	}
 	return result
+}
+
+func (database *DatabaseImp) DeleteOne(collection *mongo.Collection, ctx *context.Context, id string) error {
+	objectId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		log.Println("mongo -> DeleteOne", err)
+		return nil
+	}
+	filter := bson.M{"_id": objectId}
+
+	_, err = collection.DeleteOne(*ctx, filter)
+	if err != nil {
+		log.Println("mongo -> DeleteOne", err)
+		return nil
+	}
+	return nil
+}
+
+func (database *DatabaseImp) UpdateOneById(collection *mongo.Collection, ctx *context.Context, id string, data any) (*interface{}, error) {
+	objectId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		log.Println("mongo -> UpdateOneById", err)
+		return nil, err
+	}
+	filter := bson.M{"_id": objectId}
+	update := bson.M{
+		"$set": data,
+	}
+	result, err := collection.UpdateOne(*ctx, filter, update)
+	return &result.UpsertedID, err
 }

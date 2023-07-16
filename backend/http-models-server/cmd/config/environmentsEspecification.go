@@ -7,9 +7,9 @@ import (
 )
 
 type Env struct {
-	Port            int    `mapstructure:"PORT"`
+	PORT            int    `mapstructure:"PORT"`
 	MONGO_URL       string `mapstructure:"MONGO_URL"`
-	MONGO_POOL_SIZE int    `mapstructure:"MONGO_POOL_SIZE"`
+	MONGO_POOL_SIZE uint64 `mapstructure:"MONGO_POOL_SIZE"`
 }
 
 func NewEnvironmentsSpecification() *Env {

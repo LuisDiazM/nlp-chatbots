@@ -1,20 +1,17 @@
 package routes
 
 import (
-	trainingusecase "http-models-server/domain/usecases/training-usecase"
-	"http-models-server/infraestructure/database"
-	"http-models-server/infraestructure/database/repositories"
-
+	"http-models-server/infraestructure/app"
 	"http-models-server/infraestructure/server/controllers"
 
 	"github.com/gin-gonic/gin"
 )
 
-func NewTrainingRouter(group *gin.RouterGroup, databaseGateway database.DatabaseImp) {
-	repository := repositories.NewTrainingRepository(databaseGateway)
-	controller := &controllers.TrainingController{
-		TrainingModelUsecase: *trainingusecase.NewTrainingUsecase(repository),
-	}
-	group.GET("/training-model/:id", controller.TrainingModelInfo)
-	group.POST("/training-model", controller.InsertTrainingModelInfo)
+func NewTrainingRouter(group *gin.RouterGroup, app *app.Application) {
+
+	group.GET("/training-model/:id", controllers.TrainingModelInfo(app))
+	group.POST("/training-model", controllers.InsertTrainingModelInfo(app))
+	group.DELETE("/training-model/:id", controllers.DeleteTrainingModelInfo(app))
+	group.PUT("/training-model/:id", controllers.UpdateTrainingModelInfoById(app))
+
 }

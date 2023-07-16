@@ -13,6 +13,9 @@ func CreateApp() *app.Application {
 	wire.Build(AppProvider,
 		WebServerProvider,
 		EnvironmentVariablesProvider,
-		DatabaseProvider)
+		DatabaseProvider,
+		TrainingUsecaseProvider,
+		TrainingRepositoryProvider,
+	)
 	return new(app.Application)
 }

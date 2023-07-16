@@ -1,14 +1,11 @@
 package routes
 
 import (
-	"http-models-server/infraestructure/database"
-
-	"github.com/gin-gonic/gin"
+	"http-models-server/infraestructure/app"
 )
 
-func SetUpRoutes(server *gin.Engine, databaseGateway *database.DatabaseImp) {
-	publicRoutes := server.Group("")
+func SetUpRoutes(app *app.Application) {
+	publicRoutes := app.WebServer.Group("")
 	NewHealtRouter(publicRoutes)
-	NewTrainingRouter(publicRoutes, *databaseGateway)
-	NewModelRouter(publicRoutes, *databaseGateway)
+	NewTrainingRouter(publicRoutes, app)
 }
