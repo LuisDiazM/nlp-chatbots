@@ -4,7 +4,7 @@
 package cmd
 
 import (
-	"http-models-server/infraestructure/app"
+	"github.com/LuisDiazM/agent-manager/infraestructure/app"
 
 	"github.com/google/wire"
 )

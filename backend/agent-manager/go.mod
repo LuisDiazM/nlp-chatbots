@@ -1,4 +1,4 @@
-module http-models-server
+module github.com/LuisDiazM/agent-manager
 
 go 1.20
 

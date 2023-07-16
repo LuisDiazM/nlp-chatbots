@@ -1,6 +1,6 @@
 package repositories
 
 const (
-	trainingDatabaseName   = "training"
+	trainingDatabaseName   = "agentManager"
 	trainingCollectionName = "nluIntents"
 )

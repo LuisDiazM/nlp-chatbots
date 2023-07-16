@@ -2,8 +2,9 @@ package trainingusecase
 
 import (
 	"context"
-	"http-models-server/domain/usecases/trainingUsecase/entities"
-	"http-models-server/domain/usecases/trainingUsecase/repositories"
+
+	"github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase/entities"
+	"github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase/repositories"
 )
 
 type TrainingUsecase struct {

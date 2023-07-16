@@ -2,7 +2,8 @@ package repositories
 
 import (
 	"context"
-	"http-models-server/domain/usecases/trainingUsecase/entities"
+
+	"github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase/entities"
 )
 
 type TrainingRepository interface {

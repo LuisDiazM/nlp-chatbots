@@ -17,8 +17,8 @@ services:
       - ./volumes/mongodb:/data/db
   
   http-server:
-    build: backend/http-models-server/.
-    image: http-model-server:v1
+    build: backend/agent-manager/.
+    image: agent-manager:v1
     restart: always
     cpus: 0.5
     ports:

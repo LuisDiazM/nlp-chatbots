@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"http-models-server/cmd/config"
+	"github.com/LuisDiazM/agent-manager/cmd/config"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

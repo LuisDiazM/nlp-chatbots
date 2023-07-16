@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"http-models-server/infraestructure/server/controllers"
+	"github.com/LuisDiazM/agent-manager/infraestructure/server/controllers"
 
 	"github.com/gin-gonic/gin"
 )

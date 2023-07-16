@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"http-models-server/domain/usecases/trainingUsecase/entities"
-	"http-models-server/infraestructure/app"
+	"github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase/entities"
+	"github.com/LuisDiazM/agent-manager/infraestructure/app"
 
 	"net/http"
 

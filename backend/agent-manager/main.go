@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"http-models-server/cmd"
-	"http-models-server/infraestructure/server/routes"
+	"github.com/LuisDiazM/agent-manager/cmd"
+	"github.com/LuisDiazM/agent-manager/infraestructure/server/routes"
 	"log"
 	"os/signal"
 	"syscall"

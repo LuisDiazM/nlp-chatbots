@@ -3,9 +3,10 @@ package app
 import (
 	"context"
 	"fmt"
-	"http-models-server/cmd/config"
-	trainingusecase "http-models-server/domain/usecases/trainingUsecase"
-	"http-models-server/infraestructure/database"
+
+	"github.com/LuisDiazM/agent-manager/cmd/config"
+	trainingusecase "github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase"
+	"github.com/LuisDiazM/agent-manager/infraestructure/database"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/errgroup"

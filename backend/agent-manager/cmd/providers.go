@@ -1,13 +1,13 @@
 package cmd
 
 import (
-	"http-models-server/cmd/config"
-	trainingusecase "http-models-server/domain/usecases/trainingUsecase"
-	trainingRepository "http-models-server/infraestructure/database/repositories"
+	"github.com/LuisDiazM/agent-manager/cmd/config"
+	trainingusecase "github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase"
+	trainingRepository "github.com/LuisDiazM/agent-manager/infraestructure/database/repositories"
 
-	"http-models-server/infraestructure/app"
-	"http-models-server/infraestructure/database"
-	"http-models-server/infraestructure/server"
+	"github.com/LuisDiazM/agent-manager/infraestructure/app"
+	"github.com/LuisDiazM/agent-manager/infraestructure/database"
+	"github.com/LuisDiazM/agent-manager/infraestructure/server"
 
 	"github.com/google/wire"
 )

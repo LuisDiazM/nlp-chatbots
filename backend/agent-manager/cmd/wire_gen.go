@@ -7,12 +7,12 @@
 package cmd
 
 import (
-	"http-models-server/cmd/config"
-	"http-models-server/domain/usecases/trainingUsecase"
-	"http-models-server/infraestructure/app"
-	"http-models-server/infraestructure/database"
-	"http-models-server/infraestructure/database/repositories"
-	"http-models-server/infraestructure/server"
+	"github.com/LuisDiazM/agent-manager/cmd/config"
+	"github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase"
+	"github.com/LuisDiazM/agent-manager/infraestructure/app"
+	"github.com/LuisDiazM/agent-manager/infraestructure/database"
+	"github.com/LuisDiazM/agent-manager/infraestructure/database/repositories"
+	"github.com/LuisDiazM/agent-manager/infraestructure/server"
 )
 
 // Injectors from wire.go:

@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"http-models-server/infraestructure/app"
+	"github.com/LuisDiazM/agent-manager/infraestructure/app"
 )
 
 func SetUpRoutes(app *app.Application) {
