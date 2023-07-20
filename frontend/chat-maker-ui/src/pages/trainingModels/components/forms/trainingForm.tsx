@@ -12,19 +12,19 @@ import AddIcon from "@mui/icons-material/Add";
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import SendIcon from "@mui/icons-material/Send";
-
 import {
   IntentModel,
   TrainingChatbotModel,
-} from "../models/trainingChatbotModel/trainingChat.model";
+} from "../../models/trainingChatbotModel/trainingChat.model";
 import CardActions from "@mui/material/CardActions";
 import Tooltip from "@mui/material/Tooltip";
 
 const inputStyles = { marginRight: "10px" };
 
 const initialValues: TrainingChatbotModel = {
-  user_id: "",
-  intents: [{ patterns: [""], responses: [""], tag: "" }],
+  userId: "",
+  intents: [{ patterns: ["","","","",""], responses: [""], tag: "" }],
+  title: ""
 };
 
 const TrainingChatbotForm: React.FC = () => {
@@ -34,23 +34,22 @@ const TrainingChatbotForm: React.FC = () => {
 
   return (
     <>
-      <div style={{ margin: "auto", width: "50%" }}>
+      <div style={{ margin: "auto", width: "100%" }}>
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
           {({ values }) => (
             <Form>
-              {/* <label htmlFor="user_id" style={inputStyles}>
-                Email
-              </label>
-              <Field name="user_id" type="email"></Field> */}
-
+              <div>
+              <label htmlFor="title">Nombre del modelo</label>
+                <Field id="title" name="title">
+                </Field>
               <FieldArray name="intents">
                 {(intentsFields: {
                   remove: (arg0: number) => void;
                   push: (arg0: IntentModel) => void;
                 }) => (
-                  <div>
+                  <>
                     {values.intents.map((intentName, index) => (
-                      <Accordion>
+                      <Accordion key={`${intentName}-${index}`}>
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
                           aria-controls="panel2a-content"
@@ -88,7 +87,7 @@ const TrainingChatbotForm: React.FC = () => {
                                       remove: (arg0: number) => void;
                                       push: (arg0: string) => void;
                                     }) => (
-                                      <div>
+                                      <div key={`${values.intents[index]}`}>
                                         <h2>Frases clave</h2>
                                         {values.intents[index].patterns.map(
                                           (_, patternIndex) => (
@@ -104,7 +103,7 @@ const TrainingChatbotForm: React.FC = () => {
                                                 onClick={() => {
                                                   if (
                                                     values.intents[index]
-                                                      .patterns.length > 1
+                                                      .patterns.length > 5
                                                   ) {
                                                     patternsFields.remove(
                                                       patternIndex
@@ -193,7 +192,7 @@ const TrainingChatbotForm: React.FC = () => {
                         onClick={() =>
                           intentsFields.push({
                             tag: "",
-                            patterns: [""],
+                            patterns: ["","","","",""],
                             responses: [""],
                           })
                         }
@@ -201,10 +200,10 @@ const TrainingChatbotForm: React.FC = () => {
                         <AddIcon />
                       </IconButton>
                     </Tooltip>
-                  </div>
+                  </>
                 )}
               </FieldArray>
-
+              </div>
               <Button variant="contained" type="submit" endIcon={<SendIcon />}>
                 Entrenar chatbot
               </Button>

@@ -1,6 +1,7 @@
 export interface TrainingChatbotModel {
-  user_id: string;
+  userId: string;
   intents: IntentModel[]
+  title:string;
 }
 
 export interface IntentModel {
