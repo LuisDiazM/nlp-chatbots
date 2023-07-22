@@ -1,4 +1,4 @@
-import Box from "@mui/material/Box";
+import {Box} from "@mui/material";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import DialogContent from "@mui/material/DialogContent";

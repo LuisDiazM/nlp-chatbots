@@ -6,7 +6,7 @@ export const useUserLogin = (): boolean => {
   const [isUserLogin, setIsUserLogin] = useState<boolean>(false);
 
   useEffect(() => {
-    if (userState?.name && userState?.email) {
+    if (userState.isLicenseValid) {
       setIsUserLogin(false);
     } else {
       setIsUserLogin(true);

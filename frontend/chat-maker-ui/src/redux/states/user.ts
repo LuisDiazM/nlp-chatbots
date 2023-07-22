@@ -3,12 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export const initalUserState = {
   name: "",
   email: "",
+  picture: "",
+  isLicenseValid: false,
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    initalUserState,
+    ...initalUserState,
   },
   reducers: {
     createUser: (_, action) => {
@@ -19,7 +21,7 @@ export const userSlice = createSlice({
     },
     resetUser: () => {
       return {
-       initalUserState
+        ...initalUserState,
       };
     },
   },

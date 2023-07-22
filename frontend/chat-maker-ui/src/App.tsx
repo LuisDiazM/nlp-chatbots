@@ -7,6 +7,8 @@ import { environment } from "./environments/environments";
 import HomePage from "./pages/home/homePage";
 import ProtectedRoutes from "./auth/protectedRoutes";
 import TrainingChatPage from "./pages/trainingModels/trainingChat";
+import LoginPage from "./pages/login/loginPage";
+import RegisterPage from "./pages/login/registerPage";
 
 function App() {
   return (
@@ -16,6 +18,11 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<HomePage></HomePage>} />
+              <Route path="/login" element={<LoginPage></LoginPage>} />
+              <Route
+                path="/register"
+                element={<RegisterPage></RegisterPage>}
+              ></Route>
               <Route path="*" element={<HomePage></HomePage>} />{" "}
               <Route element={<ProtectedRoutes></ProtectedRoutes>}>
                 <Route
