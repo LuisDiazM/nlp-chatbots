@@ -3,7 +3,8 @@ package cmd
 import (
 	"github.com/LuisDiazM/agent-manager/cmd/config"
 	trainingusecase "github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase"
-	trainingRepository "github.com/LuisDiazM/agent-manager/infraestructure/database/repositories"
+	userusecase "github.com/LuisDiazM/agent-manager/domain/usecases/userUsecase"
+	repository "github.com/LuisDiazM/agent-manager/infraestructure/database/repositories"
 
 	"github.com/LuisDiazM/agent-manager/infraestructure/app"
 	"github.com/LuisDiazM/agent-manager/infraestructure/database"
@@ -18,4 +19,7 @@ var EnvironmentVariablesProvider = wire.NewSet(config.NewEnvironmentsSpecificati
 var DatabaseProvider = wire.NewSet(database.NewDatabaseImplementation)
 
 var TrainingUsecaseProvider = wire.NewSet(trainingusecase.NewTrainingUsecase)
-var TrainingRepositoryProvider = wire.NewSet(trainingRepository.NewTrainingRepository)
+var TrainingRepositoryProvider = wire.NewSet(repository.NewTrainingRepository)
+
+var UserRepositoryProvider = wire.NewSet(repository.NewUserRepository)
+var UserUsecaseProvider = wire.NewSet(userusecase.NewUserUsecase)

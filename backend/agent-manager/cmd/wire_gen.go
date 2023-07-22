@@ -9,6 +9,7 @@ package cmd
 import (
 	"github.com/LuisDiazM/agent-manager/cmd/config"
 	"github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase"
+	"github.com/LuisDiazM/agent-manager/domain/usecases/userUsecase"
 	"github.com/LuisDiazM/agent-manager/infraestructure/app"
 	"github.com/LuisDiazM/agent-manager/infraestructure/database"
 	"github.com/LuisDiazM/agent-manager/infraestructure/database/repositories"
@@ -23,6 +24,8 @@ func CreateApp() *app.Application {
 	databaseImp := database.NewDatabaseImplementation(env)
 	trainingRepository := repositories.NewTrainingRepository(databaseImp)
 	trainingUsecase := trainingusecase.NewTrainingUsecase(trainingRepository)
-	application := app.NewApplication(engine, env, databaseImp, trainingUsecase)
+	userRepositoryGateway := repositories.NewUserRepository(databaseImp)
+	userUsecase := userusecase.NewUserUsecase(userRepositoryGateway)
+	application := app.NewApplication(engine, env, databaseImp, trainingUsecase, userUsecase)
 	return application
 }
