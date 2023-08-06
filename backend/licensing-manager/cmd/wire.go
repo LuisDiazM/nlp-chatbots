@@ -12,6 +12,9 @@ func CreateApp() *app.Application {
 	wire.Build(AppProvider,
 		EnvironmentVariablesProvider,
 		NatsProvider,
+		DatabaseProvider,
+		LicenseRepoProvider,
+		LicenseUsecaseProvider,
 	)
 	return new(app.Application)
 }

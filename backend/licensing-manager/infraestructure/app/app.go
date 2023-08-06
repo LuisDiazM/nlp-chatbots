@@ -9,18 +9,24 @@ import (
 	"syscall"
 
 	"github.com/LuisDiazM/nlp-chatbots/licensing-manager/cmd/config"
+	"github.com/LuisDiazM/nlp-chatbots/licensing-manager/domain/licenses/usecases"
+	"github.com/LuisDiazM/nlp-chatbots/licensing-manager/infraestructure/database"
 	"github.com/LuisDiazM/nlp-chatbots/licensing-manager/infraestructure/messaging"
 )
 
 type Application struct {
-	Env  *config.Env
-	Nats *messaging.NatsImp
+	Env            *config.Env
+	Nats           *messaging.NatsImp
+	Database       *database.DatabaseImp
+	LicenseUsecase usecases.LicenseUsecase
 }
 
-func NewApplication(envs *config.Env, natsImp *messaging.NatsImp) *Application {
+func NewApplication(envs *config.Env, natsImp *messaging.NatsImp, database *database.DatabaseImp, licenseUsecase usecases.LicenseUsecase) *Application {
 	return &Application{
-		Env:  envs,
-		Nats: natsImp,
+		Env:            envs,
+		Nats:           natsImp,
+		Database:       database,
+		LicenseUsecase: licenseUsecase,
 	}
 }
 

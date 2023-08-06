@@ -33,3 +33,12 @@ services:
     ports:
       - 4222:4222
       - 8222:8222
+  
+  license-manager:
+    build: backend/licensing-manager/.
+    image: license-manager:v1
+    restart: always
+    cpus: 0.5
+    depends_on: 
+      - mongo
+      - nats-server
