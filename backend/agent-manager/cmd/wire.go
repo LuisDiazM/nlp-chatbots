@@ -14,9 +14,11 @@ func CreateApp() *app.Application {
 		WebServerProvider,
 		EnvironmentVariablesProvider,
 		DatabaseProvider,
+		MessagingProvider,
 		TrainingUsecaseProvider,
 		TrainingRepositoryProvider,
 		UserRepositoryProvider,
+		UserLicensesRepositoryProvider,
 		UserUsecaseProvider,
 	)
 	return new(app.Application)

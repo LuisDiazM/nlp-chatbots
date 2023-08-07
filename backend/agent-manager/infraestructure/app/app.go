@@ -8,6 +8,7 @@ import (
 	trainingusecase "github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase"
 	userusecase "github.com/LuisDiazM/agent-manager/domain/usecases/userUsecase"
 	"github.com/LuisDiazM/agent-manager/infraestructure/database"
+	"github.com/LuisDiazM/agent-manager/infraestructure/messaging"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/errgroup"
@@ -17,17 +18,19 @@ type Application struct {
 	WebServer       *gin.Engine
 	Env             *config.Env
 	Database        *database.DatabaseImp
+	Messaging       *messaging.NatsImp
 	TrainingUsecase *trainingusecase.TrainingUsecase
 	UserUsecase     *userusecase.UserUsecase
 	// ModelsUsecase   *modelusecase.ModelsUsecase
 }
 
-func NewApplication(webServer *gin.Engine, configVars *config.Env, database *database.DatabaseImp, trainingUsecase *trainingusecase.TrainingUsecase, userUsecase *userusecase.UserUsecase) *Application {
+func NewApplication(webServer *gin.Engine, configVars *config.Env, database *database.DatabaseImp, trainingUsecase *trainingusecase.TrainingUsecase, userUsecase *userusecase.UserUsecase, messaging *messaging.NatsImp) *Application {
 	return &Application{WebServer: webServer,
 		Env:             configVars,
 		Database:        database,
 		TrainingUsecase: trainingUsecase,
 		UserUsecase:     userUsecase,
+		Messaging:       messaging,
 	}
 }
 

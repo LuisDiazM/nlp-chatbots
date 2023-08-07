@@ -13,6 +13,8 @@ import (
 	"github.com/LuisDiazM/agent-manager/infraestructure/app"
 	"github.com/LuisDiazM/agent-manager/infraestructure/database"
 	"github.com/LuisDiazM/agent-manager/infraestructure/database/repositories"
+	"github.com/LuisDiazM/agent-manager/infraestructure/messaging"
+	"github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/userRepository"
 	"github.com/LuisDiazM/agent-manager/infraestructure/server"
 )
 
@@ -25,7 +27,9 @@ func CreateApp() *app.Application {
 	trainingRepository := repositories.NewTrainingRepository(databaseImp)
 	trainingUsecase := trainingusecase.NewTrainingUsecase(trainingRepository)
 	userRepositoryGateway := repositories.NewUserRepository(databaseImp)
-	userUsecase := userusecase.NewUserUsecase(userRepositoryGateway)
-	application := app.NewApplication(engine, env, databaseImp, trainingUsecase, userUsecase)
+	natsImp := messaging.NewNatsImplementation(env)
+	licensesRepoGateway := userRepository.NewUserLicenseMessagingRepository(natsImp)
+	userUsecase := userusecase.NewUserUsecase(userRepositoryGateway, licensesRepoGateway)
+	application := app.NewApplication(engine, env, databaseImp, trainingUsecase, userUsecase, natsImp)
 	return application
 }

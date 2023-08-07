@@ -62,15 +62,18 @@ func RegisterController(app *app.Application) gin.HandlerFunc {
 		name := claims["name"].(string)
 		picture := claims["picture"].(string)
 		var user entities.User = entities.User{Name: name, Email: email, Id: email, Picture: picture, CreatedAt: time.Now().UTC()}
-		userResponse := app.UserUsecase.GetUserById(user.Id, ctx)
-		if userResponse == nil {
-			response := app.UserUsecase.InsertUser(user, ctx)
-			ctx.JSON(http.StatusCreated, gin.H{"user_id": response, "is_created": true})
+		response := app.UserUsecase.InsertUser(user, ctx)
+		if response != nil {
+			reference := *response
+			if reference["exists_previous_licenses"] {
+				ctx.JSON(http.StatusOK, gin.H{"user_id": nil, "is_created": false})
+				return
+			}
+			ctx.JSON(http.StatusCreated, gin.H{"user_id": user.Id, "is_created": true})
+
 		} else {
-			ctx.JSON(http.StatusOK, gin.H{
-				"user_id":    nil,
-				"is_created": false,
-			})
+			ctx.JSON(http.StatusOK, gin.H{"user_id": nil, "is_created": false})
 		}
+
 	}
 }

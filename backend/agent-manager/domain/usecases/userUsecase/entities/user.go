@@ -11,6 +11,6 @@ type User struct {
 }
 
 type UserWithLicenseValidation struct {
-	User           User `json:"user,omitempty"`
-	IsLicenceValid bool `json:"is_licence_valid,omitempty"`
+	User           User `json:"user"`
+	IsLicenceValid bool `json:"is_licence_valid"`
 }

@@ -10,6 +10,7 @@ type Env struct {
 	PORT            int    `mapstructure:"PORT"`
 	MONGO_URL       string `mapstructure:"MONGO_URL"`
 	MONGO_POOL_SIZE uint64 `mapstructure:"MONGO_POOL_SIZE"`
+	NATS_URL        string `mapstructure:"NATS_URL"`
 }
 
 func NewEnvironmentsSpecification() *Env {
