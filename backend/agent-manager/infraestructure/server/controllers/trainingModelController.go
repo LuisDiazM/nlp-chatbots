@@ -70,3 +70,20 @@ func UpdateTrainingModelInfoById(app *app.Application) gin.HandlerFunc {
 		}
 	}
 }
+
+func GetModelsByUserId(app *app.Application) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		id := ctx.Query("userId")
+		trainingData, err := app.TrainingUsecase.GetModelsByUserId(id, ctx.Request.Context())
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, err)
+			return
+		}
+		if trainingData != nil {
+			ctx.JSON(http.StatusOK, trainingData)
+			return
+		} else {
+			ctx.JSON(http.StatusNoContent, nil)
+		}
+	}
+}

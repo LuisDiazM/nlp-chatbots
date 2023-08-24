@@ -6,6 +6,7 @@ import (
 
 	"github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase/entities"
 	"github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase/repositories"
+	"go.mongodb.org/mongo-driver/bson"
 
 	"github.com/LuisDiazM/agent-manager/infraestructure/database"
 )
@@ -50,5 +51,19 @@ func (repository *TrainingRepository) DeleteTrainingModel(id string, ctx context
 func (repository *TrainingRepository) UpdateTrainingModel(id string, data entities.TrainingInfo, ctx context.Context) (*interface{}, error) {
 	collection := repository.Database.Collection(trainingDatabaseName, trainingCollectionName)
 	return repository.Database.UpdateOneById(collection, &ctx, id, data)
+}
 
+func (repository *TrainingRepository) GetModelsByUserId(ctx context.Context, userId string) (*[]entities.TrainingInfo, error) {
+	collection := repository.Database.Collection(trainingDatabaseName, trainingCollectionName)
+	filter := bson.M{"userId": userId}
+	cursor, err := collection.Find(ctx, filter)
+	if err != nil {
+		return nil, err
+	}
+	var models []entities.TrainingInfo
+	err = cursor.All(ctx, &models)
+	if err != nil {
+		return nil, err
+	}
+	return &models, nil
 }

@@ -30,3 +30,7 @@ func (usecase *TrainingUsecase) DeleteTrainingIntentById(id string, ctx context.
 func (usecase *TrainingUsecase) UpdateTrainingIntentById(id string, data entities.TrainingInfo, ctx context.Context) (*interface{}, error) {
 	return usecase.TrainingRepository.UpdateTrainingModel(id, data, ctx)
 }
+
+func (usecase *TrainingUsecase) GetModelsByUserId(userId string, ctx context.Context) (*[]entities.TrainingInfo, error) {
+	return usecase.TrainingRepository.GetModelsByUserId(ctx, userId)
+}

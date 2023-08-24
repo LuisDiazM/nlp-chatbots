@@ -11,4 +11,5 @@ type TrainingRepository interface {
 	InsertTrainingModel(data entities.TrainingInfo, ctx context.Context) *interface{}
 	DeleteTrainingModel(id string, ctx context.Context) error
 	UpdateTrainingModel(id string, data entities.TrainingInfo, ctx context.Context) (*interface{}, error)
+	GetModelsByUserId(ctx context.Context, userId string) (*[]entities.TrainingInfo, error)
 }
