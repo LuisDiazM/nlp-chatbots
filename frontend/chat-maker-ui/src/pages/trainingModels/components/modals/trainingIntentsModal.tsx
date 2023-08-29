@@ -5,6 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import { useState } from "react";
 import React from "react";
 import TrainingChatbotForm from "../forms/trainingForm";
+import { TrainingModel } from "../../../utilities/trainingModels";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -17,14 +18,21 @@ const style = {
   p: 4,
 };
 
+
+
 const TrainingIntentsModal: React.FC = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const initialValues: TrainingModel = {
+    user_id: "",
+    intents: [{ patterns: ["", "", "", "", ""], responses: [""], tag: "" }],
+    title: "",
+    description:""
+  };
   return (
     <div>
-      <Button onClick={handleOpen} variant="contained" color="success">
+      <Button style={{marginBottom:"10px"}} onClick={handleOpen} variant="contained" color="success">
         Crear Modelo
       </Button>
       <Modal
@@ -36,7 +44,7 @@ const TrainingIntentsModal: React.FC = () => {
         <Box sx={style}>
           <DialogContent>
             <div style={{ maxHeight: "700px", overflowY: "auto", paddingTop:"10px" }}>
-              <TrainingChatbotForm></TrainingChatbotForm>
+              <TrainingChatbotForm model={initialValues} isEdit={false} key={0} closeModal={setOpen}></TrainingChatbotForm>
             </div>
           </DialogContent>
         </Box>

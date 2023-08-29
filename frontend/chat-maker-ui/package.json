@@ -19,9 +19,11 @@
     "@mui/styled-engine-sc": "^5.12.0",
     "@react-oauth/google": "^0.11.0",
     "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.5.0",
     "formik": "^2.4.2",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
+    "node-sass": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.1",
@@ -29,6 +31,7 @@
     "sort-by": "^1.2.0",
     "styled-components": "^5.3.11",
     "sweetalert": "^2.1.2",
+    "swr": "^2.2.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -41,6 +44,7 @@
     "eslint": "^8.38.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
+    "sass": "^1.66.1",
     "typescript": "^5.0.2",
     "vite": "^4.3.9"
   }

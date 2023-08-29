@@ -1,0 +1,16 @@
+.formContainer {
+  margin: 0 auto;
+  display: grid;
+  input{
+    margin-bottom: 15px;
+  }
+  textarea{
+    margin-bottom: 15px;
+  }
+  label{
+    margin-right: 5px;
+    font-size: large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+  }
+}

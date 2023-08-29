@@ -11,6 +11,7 @@ import { useUserLogin } from "../auth/useUserLogin";
 import { logout } from "../auth/logout";
 import { useDispatch } from "react-redux";
 import { resetUser } from "../redux/states/user";
+import { resetAuth } from "../redux/states/auth";
 
 const Navigation = () => {
   const [value, setValue] = useState(0);
@@ -19,6 +20,7 @@ const Navigation = () => {
   const dispatcher = useDispatch();
   const handleLogoutApp = () => {
     logout();
+    dispatcher(resetAuth())
     dispatcher(resetUser());
     navigate("/");
   };
