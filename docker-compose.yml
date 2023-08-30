@@ -42,3 +42,11 @@ services:
     depends_on: 
       - mongo
       - nats-server
+
+  training-nlp:
+    build: backend/training-nlp/.
+    image: training-nlp:v1
+    restart: always
+    depends_on: 
+      - mongo
+      - nats-server
