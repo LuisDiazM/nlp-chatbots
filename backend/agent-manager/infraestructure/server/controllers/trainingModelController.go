@@ -31,7 +31,7 @@ func InsertTrainingModelInfo(app *app.Application) gin.HandlerFunc {
 			return
 		} else {
 			response := app.TrainingUsecase.InsertModel(trainingInfo, ctx.Request.Context())
-			if response == nil {
+			if response == "" {
 				ctx.JSON(http.StatusNoContent, gin.H{})
 				return
 			} else {

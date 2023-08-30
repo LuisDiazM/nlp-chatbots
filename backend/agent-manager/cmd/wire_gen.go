@@ -14,6 +14,7 @@ import (
 	"github.com/LuisDiazM/agent-manager/infraestructure/database"
 	"github.com/LuisDiazM/agent-manager/infraestructure/database/repositories"
 	"github.com/LuisDiazM/agent-manager/infraestructure/messaging"
+	"github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/trainingDataRepository"
 	"github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/userRepository"
 	"github.com/LuisDiazM/agent-manager/infraestructure/server"
 )
@@ -25,9 +26,10 @@ func CreateApp() *app.Application {
 	env := config.NewEnvironmentsSpecification()
 	databaseImp := database.NewDatabaseImplementation(env)
 	trainingRepository := repositories.NewTrainingRepository(databaseImp)
-	trainingUsecase := trainingusecase.NewTrainingUsecase(trainingRepository)
-	userRepositoryGateway := repositories.NewUserRepository(databaseImp)
 	natsImp := messaging.NewNatsImplementation(env)
+	trainingMessagingRepository := trainingDataRepository.NewTrainingNNModelsRepository(natsImp)
+	trainingUsecase := trainingusecase.NewTrainingUsecase(trainingRepository, trainingMessagingRepository)
+	userRepositoryGateway := repositories.NewUserRepository(databaseImp)
 	licensesRepoGateway := userRepository.NewUserLicenseMessagingRepository(natsImp)
 	userUsecase := userusecase.NewUserUsecase(userRepositoryGateway, licensesRepoGateway)
 	application := app.NewApplication(engine, env, databaseImp, trainingUsecase, userUsecase, natsImp)

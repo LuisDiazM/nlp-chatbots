@@ -19,6 +19,7 @@ func CreateApp() *app.Application {
 		TrainingRepositoryProvider,
 		UserRepositoryProvider,
 		UserLicensesRepositoryProvider,
+		TrainingMessagingRepositoryProvider,
 		UserUsecaseProvider,
 	)
 	return new(app.Application)

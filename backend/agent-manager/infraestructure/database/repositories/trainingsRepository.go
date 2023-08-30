@@ -7,6 +7,7 @@ import (
 	"github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase/entities"
 	"github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase/repositories"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"github.com/LuisDiazM/agent-manager/infraestructure/database"
 )
@@ -33,13 +34,14 @@ func (repository *TrainingRepository) GetTrainingModelById(id string, ctx contex
 	return &trainingInfo
 }
 
-func (repository *TrainingRepository) InsertTrainingModel(data entities.TrainingInfo, ctx context.Context) *interface{} {
+func (repository *TrainingRepository) InsertTrainingModel(data entities.TrainingInfo, ctx context.Context) string {
 	collection := repository.Database.Collection(trainingDatabaseName, trainingCollectionName)
 	result := repository.Database.InsertOne(collection, &ctx, data)
 	if result != nil {
-		return &result.InsertedID
+		documentId := result.InsertedID.(primitive.ObjectID).Hex()
+		return documentId
 	} else {
-		return nil
+		return ""
 	}
 }
 

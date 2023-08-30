@@ -6,6 +6,7 @@ import (
 	userusecase "github.com/LuisDiazM/agent-manager/domain/usecases/userUsecase"
 	repository "github.com/LuisDiazM/agent-manager/infraestructure/database/repositories"
 	"github.com/LuisDiazM/agent-manager/infraestructure/messaging"
+	trainingDataRepository "github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/trainingDataRepository"
 	messagingLicensesRepo "github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/userRepository"
 
 	"github.com/LuisDiazM/agent-manager/infraestructure/app"
@@ -23,6 +24,7 @@ var MessagingProvider = wire.NewSet(messaging.NewNatsImplementation)
 
 var TrainingUsecaseProvider = wire.NewSet(trainingusecase.NewTrainingUsecase)
 var TrainingRepositoryProvider = wire.NewSet(repository.NewTrainingRepository)
+var TrainingMessagingRepositoryProvider = wire.NewSet(trainingDataRepository.NewTrainingNNModelsRepository)
 
 var UserRepositoryProvider = wire.NewSet(repository.NewUserRepository)
 var UserLicensesRepositoryProvider = wire.NewSet(messagingLicensesRepo.NewUserLicenseMessagingRepository)
