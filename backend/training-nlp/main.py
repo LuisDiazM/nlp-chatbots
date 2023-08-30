@@ -24,7 +24,6 @@ async def main(training_usecase: TrainingUsecase = Provide[Container.training_us
     nats_instance = NatsImp()
     await nats_instance.set_up()
     client = nats_instance.client
-
     # subscriptors
     await client.subscribe(SUBSCRIPTION_TRAINING_MODEL_COMMAND, queue=QUEUE_TRAINING_NLP, cb=controllers_instance.training_model_handler)
 

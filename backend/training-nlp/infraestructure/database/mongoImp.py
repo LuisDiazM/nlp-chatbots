@@ -9,6 +9,8 @@ class MongoImp(DatabaseGateway):
 
     def __init__(self):
         self.set_up()
+        print("connection Mongo successfull")
+
 
     def set_up(self) -> None:
         self.client = MongoClient(os.getenv("MONGO_URL"))
@@ -23,5 +25,4 @@ class MongoImp(DatabaseGateway):
     
     def insert_one(self, database:str, collection:str, data:Dict) -> None:
         collection = self.client[database][collection]
-        collection.insert_one(data)
-        
+        doc = collection.insert_one(data)

@@ -22,4 +22,5 @@ class ControllerSubscriptions:
             subject=subject, reply=reply, data=data))
         request_data = TrainChatbotRequest(**data)
         model_path = self.training_usecase.generate_model(request_data.id)
-        self.storage_usecase.upload_ia_model_to_s3(model_path, request_data.id)
+        print(request_data)
+        self.storage_usecase.upload_ia_model_to_s3(model_path, request_data.user_id, request_data.id)

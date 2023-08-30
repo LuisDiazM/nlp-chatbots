@@ -1,6 +1,6 @@
-DATABASE_TRAINING = "trainings"
-COLLECTION_TRAINING = "trainingInfo"
-COLLECTION_MODELS = "models"
+DATABASE_TRAINING = "agentManager"
+COLLECTION_TRAINING = "nluIntents"
+COLLECTION_MODELS = "neuralNetworkmodels"
 
-QUEUE_TRAINING_NLP = "training.nlp" 
-SUBSCRIPTION_TRAINING_MODEL_COMMAND = "command.training.chatbots"
+QUEUE_TRAINING_NLP = "training.nlu" 
+SUBSCRIPTION_TRAINING_MODEL_COMMAND = "create.NNmodel.By.NLUintents"
