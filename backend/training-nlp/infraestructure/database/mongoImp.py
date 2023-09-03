@@ -2,27 +2,46 @@ import os
 from typing import Dict
 from pymongo import MongoClient
 from bson import ObjectId
-from infraestructure.gateways import DatabaseGateway
+from domain.helpers.loggers import logger
 
-class MongoImp(DatabaseGateway):
+
+class MongoImp:
     client: MongoClient
 
     def __init__(self):
         self.set_up()
-        print("connection Mongo successfull")
-
+        logger.info(f"connection Mongo successfull")
 
     def set_up(self) -> None:
         self.client = MongoClient(os.getenv("MONGO_URL"))
 
     def find_by_id(self, id: str, database: str, collection: str) -> Dict:
-        collection = self.client.get_database(
+        col = self.client.get_database(
             database).get_collection(collection)
-        return collection.find_one({"_id": ObjectId(id)})
-        
+        return col.find_one({"_id": ObjectId(id)})
+
     def shutdown(self):
         self.client.close()
-    
-    def insert_one(self, database:str, collection:str, data:Dict) -> None:
-        collection = self.client[database][collection]
-        doc = collection.insert_one(data)
+
+    def insert_one(self, database: str, collection: str, data: Dict) -> None:
+        col = self.client[database][collection]
+        col.insert_one(data)
+
+    def delete_by_id(self, database: str, collection: str, id: str) -> bool:
+        try:
+            col = self.client[database][collection]
+            filter_to_delete = {"_id": ObjectId(id)}
+            col.delete_one(filter_to_delete)
+            return True
+        except Exception as e:
+            logger.error(f"could not delete document {str(e)}")
+            return False
+
+    def find_documents(self, database: str, collection: str, filter: Dict):
+        col = self.client.get_database(
+            database).get_collection(collection)
+        cursor = col.find(filter)
+        documents = []
+        for doc in cursor:
+            documents.append(doc)
+        return documents

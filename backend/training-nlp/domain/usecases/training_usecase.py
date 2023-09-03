@@ -1,4 +1,4 @@
-from infraestructure.database.mongoImp import MongoImp
+from domain.usecases.gateways import DatabaseGateway
 from infraestructure.preprocessing.nlp_preprocessing import PreprocessingNLP
 from infraestructure.neural_networks.neturalNetImp import NeuralNetImp
 from domain.helpers.constants import DATABASE_TRAINING, COLLECTION_TRAINING
@@ -7,7 +7,7 @@ from domain.models.preprocessing_training_model import PreprocessTrainingModel
 
 
 class TrainingUsecase:
-    def __init__(self, database_gateway: MongoImp, preprocess_nlp: PreprocessingNLP, neural_net: NeuralNetImp) -> None:
+    def __init__(self, database_gateway: DatabaseGateway, preprocess_nlp: PreprocessingNLP, neural_net: NeuralNetImp) -> None:
         self.database_gateway = database_gateway
         self.preprocess_nlp = preprocess_nlp
         self.neural_net = neural_net

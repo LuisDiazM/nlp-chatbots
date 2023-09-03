@@ -3,14 +3,14 @@ from cmd.config import set_env
 from cmd.di import Container
 
 from dependency_injector.wiring import Provide, inject
-from domain.helpers.constants import (QUEUE_TRAINING_NLP,
+from domain.helpers.constants import (QUEUE_MANAGE_MODELS, QUEUE_TRAINING_NLP, SUBSCRIPTION_REMOVE_MODELS,
                                       SUBSCRIPTION_TRAINING_MODEL_COMMAND)
 from domain.usecases.storage_models_usecase import StorageModelsUsecase
 from domain.usecases.training_usecase import TrainingUsecase
 from infraestructure.messaging.controller.handlers import \
     ControllerSubscriptions
 from infraestructure.messaging.natsImp import NatsImp
-
+from domain.helpers.loggers import logger
 set_env()
 
 @inject
@@ -24,9 +24,10 @@ async def main(training_usecase: TrainingUsecase = Provide[Container.training_us
     nats_instance = NatsImp()
     await nats_instance.set_up()
     client = nats_instance.client
+    logger.info("training nlp start!!")
     # subscriptors
     await client.subscribe(SUBSCRIPTION_TRAINING_MODEL_COMMAND, queue=QUEUE_TRAINING_NLP, cb=controllers_instance.training_model_handler)
-
+    await client.subscribe(SUBSCRIPTION_REMOVE_MODELS, queue=QUEUE_MANAGE_MODELS, cb=controllers_instance.delete_models_by_trainig_id)
 
 if __name__ == '__main__':
     container = Container()

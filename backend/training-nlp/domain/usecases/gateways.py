@@ -20,9 +20,20 @@ class DatabaseGateway(ABC):
     def insert_one(self, database:str, collection:str, data:Dict) -> None:
         pass
 
+    @abstractmethod
+    def delete_by_id(self, database: str, collection: str, id: str) -> bool:
+        pass
+
+    @abstractmethod
+    def find_documents(self, database: str, collection: str, filter: Dict):
+        pass
 
 class StorageGateway(ABC):
     
     @abstractmethod
     def upload(self, path_file: str) -> str:
+        pass
+
+    @abstractmethod
+    def delete_file(self, path: str) -> bool:
         pass

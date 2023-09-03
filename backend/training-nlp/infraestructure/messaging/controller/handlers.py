@@ -2,9 +2,10 @@ import json
 
 from domain.usecases.storage_models_usecase import StorageModelsUsecase
 from cmd.di import Container
-from domain.models.train_chatbot_request import TrainChatbotRequest
+from domain.models.train_chatbot_request import DeleteModelsRequest, TrainChatbotRequest
 from domain.usecases.training_usecase import TrainingUsecase
 from dependency_injector.wiring import Provide, inject
+from domain.helpers.loggers import logger 
 
 class ControllerSubscriptions:
     
@@ -18,9 +19,19 @@ class ControllerSubscriptions:
         subject = msg.subject
         reply = msg.reply
         data = json.loads(msg.data.decode())
-        print("Received a message on '{subject} {reply}': {data}".format(
+        logger.info("Received a message on '{subject} {reply}': {data}".format(
             subject=subject, reply=reply, data=data))
         request_data = TrainChatbotRequest(**data)
         model_path = self.training_usecase.generate_model(request_data.id)
-        print(request_data)
         self.storage_usecase.upload_ia_model_to_s3(model_path, request_data.user_id, request_data.id)
+
+    
+    async def delete_models_by_trainig_id(self, msg):
+        subject = msg.subject
+        reply = msg.reply
+        data = json.loads(msg.data.decode())
+        logger.info("Received a message on '{subject} {reply}': {data}".format(
+            subject=subject, reply=reply, data=data))
+        request_data = DeleteModelsRequest(**data)
+        training_id = request_data.training_id
+        self.storage_usecase.delete_models_by_training_id(training_id)

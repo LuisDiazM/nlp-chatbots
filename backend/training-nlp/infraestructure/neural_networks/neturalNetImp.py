@@ -1,3 +1,4 @@
+import time
 import torch
 from torch.utils.data import DataLoader
 import torch.nn as nn
@@ -7,6 +8,7 @@ from infraestructure.neural_networks.nn_models.nn_model import NeuralNet
 from infraestructure.neural_networks.data_models.chat_model import ChatDataSet
 from domain.models.preprocessing_training_model import PreprocessTrainingModel
 from domain.models.model_trained import ModelTrained
+from domain.helpers.loggers import logger
 
 
 class NeuralNetImp:
@@ -16,6 +18,7 @@ class NeuralNetImp:
     num_epochs = 1000
 
     def run_nn(self, preprocess_training: PreprocessTrainingModel) -> str:
+        start_time = time.time()
         data_set = self.__prepare_dataset(
             preprocess_training.x_train, preprocess_training.y_train)
         train_loader = self.__prepare_train_loader(data_set)
@@ -40,17 +43,17 @@ class NeuralNetImp:
                 loss.backward()
                 optimizer.step()
 
-            if epoch % 100 == 0:
-                print(
-                    f"epoch {epoch+100}/{self.num_epochs}, loss={loss.item()}")
 
         data_model = self.__generate_data_model(model, preprocess_training)
         model_path = self.__generate_model_path()
 
         torch.save(data_model.dict(), model_path)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        logger.info(f"neural network was trained in {elapsed_time} seconds")
         return model_path
-    
-    def __generate_model_path(self)->str:
+
+    def __generate_model_path(self) -> str:
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         model_uid = uuid.uuid4()
         return os.path.join(BASE_DIR, "bin", f"{model_uid}.pth")
