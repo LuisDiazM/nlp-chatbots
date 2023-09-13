@@ -3,7 +3,7 @@ from cmd.config import set_env
 from cmd.di import Container
 
 from dependency_injector.wiring import Provide, inject
-from domain.helpers.constants import (QUEUE_MANAGE_MODELS, QUEUE_TRAINING_NLP, SUBSCRIPTION_REMOVE_MODELS,
+from domain.helpers.constants import (QUEUE_MANAGE_MODELS, QUEUE_TRAINING_NLP, SUBSCRIPTION_REMOVE_MODELS, SUBSCRIPTION_REMOVE_MODELS_BY_USER,
                                       SUBSCRIPTION_TRAINING_MODEL_COMMAND)
 from domain.usecases.storage_models_usecase import StorageModelsUsecase
 from domain.usecases.training_usecase import TrainingUsecase
@@ -28,6 +28,8 @@ async def main(training_usecase: TrainingUsecase = Provide[Container.training_us
     # subscriptors
     await client.subscribe(SUBSCRIPTION_TRAINING_MODEL_COMMAND, queue=QUEUE_TRAINING_NLP, cb=controllers_instance.training_model_handler)
     await client.subscribe(SUBSCRIPTION_REMOVE_MODELS, queue=QUEUE_MANAGE_MODELS, cb=controllers_instance.delete_models_by_trainig_id)
+    await client.subscribe(SUBSCRIPTION_REMOVE_MODELS_BY_USER, queue=QUEUE_MANAGE_MODELS, cb=controllers_instance.delete_models_by_user_id)
+
 
 if __name__ == '__main__':
     container = Container()

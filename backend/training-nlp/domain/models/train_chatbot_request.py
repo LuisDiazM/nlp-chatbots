@@ -8,3 +8,4 @@ class TrainChatbotRequest(BaseModel):
 
 class DeleteModelsRequest(BaseModel):
     training_id: str
+

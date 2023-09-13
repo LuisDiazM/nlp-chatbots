@@ -35,3 +35,13 @@ class ControllerSubscriptions:
         request_data = DeleteModelsRequest(**data)
         training_id = request_data.training_id
         self.storage_usecase.delete_models_by_training_id(training_id)
+    
+    async def delete_models_by_user_id(self, msg):
+        subject = msg.subject
+        reply = msg.reply
+        data = json.loads(msg.data.decode())
+        logger.info("Received a message on '{subject} {reply}': {data}".format(
+            subject=subject, reply=reply, data=data))
+        user_id = data.get("user_id","")
+        if user_id != "":
+            self.storage_usecase.delete_models_by_user_id(user_id)

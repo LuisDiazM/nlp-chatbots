@@ -38,3 +38,17 @@ class StorageModelsUsecase:
         end_time = time.time()
         elapsed_time = end_time - start_time
         logger.info(f"models with training_id {training_id} were deleted in {elapsed_time} seconds")
+    
+    def delete_models_by_user_id(self, user_id:str):
+        start_time = time.time()
+        filters = {"userId": user_id}
+        documents = self.database_gateway.find_documents(DATABASE_TRAINING, COLLECTION_MODELS, filters)
+        if len(documents)>0:
+            for doc in documents:
+                model_id = doc.get("_id","")
+                model_path = doc.get("modelName","")
+                self.storage_gateway.delete_file(model_path)
+                self.database_gateway.delete_by_id(DATABASE_TRAINING, COLLECTION_MODELS, model_id)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        logger.info(f"models with user_id {user_id} were deleted in {elapsed_time} seconds")

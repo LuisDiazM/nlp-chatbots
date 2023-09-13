@@ -7,3 +7,4 @@ QUEUE_MANAGE_MODELS = "manage.training.nlu"
 
 SUBSCRIPTION_TRAINING_MODEL_COMMAND = "create.NNmodel.By.NLUintents"
 SUBSCRIPTION_REMOVE_MODELS = "delete.NNmodel.By.NLUintent.id"
+SUBSCRIPTION_REMOVE_MODELS_BY_USER = "delete.NNmodel.By.user.id"
