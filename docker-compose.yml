@@ -50,3 +50,12 @@ services:
     depends_on: 
       - mongo
       - nats-server
+  
+
+  core-ia-modes:
+    build: backend/core-ia-models/.
+    image: core-ia-models:v1
+    restart: always
+    depends_on: 
+      - mongo
+      - nats-server

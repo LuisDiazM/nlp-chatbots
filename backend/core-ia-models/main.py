@@ -6,7 +6,7 @@ from domain.usecases.chatbot_responses_usecase import ChatbotResponseUsecase
 from domain.helpers.constants import QUEUE_CORE_IA, SUBSCRIPTION_CHATBOT_RESPONSE
 from infraestructure.messaging.controllers.handlers import ChatbotResponseHandler
 from infraestructure.messaging.natsImp import NatsImp
-
+from domain.helpers.loggers import logger
 set_env()
 
 @inject
@@ -16,10 +16,9 @@ async def main(chatbot_usecase: ChatbotResponseUsecase = Provide[Container.chatb
     nats_instance = NatsImp()
     await nats_instance.set_up()
     client = nats_instance.client
-
     controller = ChatbotResponseHandler(
         chatbot_response_usecase=chatbot_usecase, nats_client=client)
-
+    logger.info("core ia models start!!!")
     #subscribers
     await client.subscribe(SUBSCRIPTION_CHATBOT_RESPONSE ,queue= QUEUE_CORE_IA, cb=controller.chatbot_response_handler)
 

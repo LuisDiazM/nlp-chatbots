@@ -3,7 +3,7 @@ import json
 
 from domain.models.test_chatbot_request import TestChatbotRequest
 from domain.usecases.chatbot_responses_usecase import ChatbotResponseUsecase
-
+from domain.helpers.loggers import logger
 
 class ChatbotResponseHandler:
 
@@ -15,7 +15,7 @@ class ChatbotResponseHandler:
         subject = msg.subject
         reply = msg.reply
         data = json.loads(msg.data.decode())
-        print("Received a message on '{subject} {reply}': {data}".format(
+        logger.info("Received a message on '{subject} {reply}': {data}".format(
             subject=subject, reply=reply, data=data))
         request_data = TestChatbotRequest(**data)
         response = self.chatbot_response_usecase.chatbot_response(
