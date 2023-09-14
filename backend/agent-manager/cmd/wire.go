@@ -21,6 +21,8 @@ func CreateApp() *app.Application {
 		UserLicensesRepositoryProvider,
 		TrainingMessagingRepositoryProvider,
 		UserUsecaseProvider,
+		NeuralNetworkUsecaseProvider,
+		NeuralNetworkModelsRepoProvider,
 	)
 	return new(app.Application)
 }

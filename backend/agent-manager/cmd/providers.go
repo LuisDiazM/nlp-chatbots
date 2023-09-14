@@ -2,8 +2,10 @@ package cmd
 
 import (
 	"github.com/LuisDiazM/agent-manager/cmd/config"
+	neuralnetworkusecase "github.com/LuisDiazM/agent-manager/domain/usecases/nnModelsUsecase"
 	trainingusecase "github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase"
 	userusecase "github.com/LuisDiazM/agent-manager/domain/usecases/userUsecase"
+
 	repository "github.com/LuisDiazM/agent-manager/infraestructure/database/repositories"
 	"github.com/LuisDiazM/agent-manager/infraestructure/messaging"
 	trainingDataRepository "github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/trainingDataRepository"
@@ -29,3 +31,6 @@ var TrainingMessagingRepositoryProvider = wire.NewSet(trainingDataRepository.New
 var UserRepositoryProvider = wire.NewSet(repository.NewUserRepository)
 var UserLicensesRepositoryProvider = wire.NewSet(messagingLicensesRepo.NewUserLicenseMessagingRepository)
 var UserUsecaseProvider = wire.NewSet(userusecase.NewUserUsecase)
+
+var NeuralNetworkUsecaseProvider = wire.NewSet(neuralnetworkusecase.NewNeuralNetworkModelUsecase)
+var NeuralNetworkModelsRepoProvider = wire.NewSet(repository.NewNeuralNetworkRepository)

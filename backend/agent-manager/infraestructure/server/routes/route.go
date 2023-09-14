@@ -12,4 +12,5 @@ func SetUpRoutes(app *app.Application) {
 	privateRoutes := app.WebServer.Group("")
 	privateRoutes.Use(middlewares.JwtGoogle())
 	NewTrainingRouter(privateRoutes, app)
+	NewNeuralNetworkRouter(privateRoutes, app)
 }

@@ -5,8 +5,10 @@ import (
 	"fmt"
 
 	"github.com/LuisDiazM/agent-manager/cmd/config"
+	nnmodelusecase "github.com/LuisDiazM/agent-manager/domain/usecases/nnModelsUsecase"
 	trainingusecase "github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase"
 	userusecase "github.com/LuisDiazM/agent-manager/domain/usecases/userUsecase"
+
 	"github.com/LuisDiazM/agent-manager/infraestructure/database"
 	"github.com/LuisDiazM/agent-manager/infraestructure/messaging"
 
@@ -15,22 +17,23 @@ import (
 )
 
 type Application struct {
-	WebServer       *gin.Engine
-	Env             *config.Env
-	Database        *database.DatabaseImp
-	Messaging       *messaging.NatsImp
-	TrainingUsecase *trainingusecase.TrainingUsecase
-	UserUsecase     *userusecase.UserUsecase
-	// ModelsUsecase   *modelusecase.ModelsUsecase
+	WebServer            *gin.Engine
+	Env                  *config.Env
+	Database             *database.DatabaseImp
+	Messaging            *messaging.NatsImp
+	TrainingUsecase      *trainingusecase.TrainingUsecase
+	UserUsecase          *userusecase.UserUsecase
+	NeuralNetworkUsecase *nnmodelusecase.NeuralNetworkModelUsecase
 }
 
-func NewApplication(webServer *gin.Engine, configVars *config.Env, database *database.DatabaseImp, trainingUsecase *trainingusecase.TrainingUsecase, userUsecase *userusecase.UserUsecase, messaging *messaging.NatsImp) *Application {
+func NewApplication(webServer *gin.Engine, configVars *config.Env, database *database.DatabaseImp, trainingUsecase *trainingusecase.TrainingUsecase, userUsecase *userusecase.UserUsecase, messaging *messaging.NatsImp, nnmodelUsecase *nnmodelusecase.NeuralNetworkModelUsecase) *Application {
 	return &Application{WebServer: webServer,
-		Env:             configVars,
-		Database:        database,
-		TrainingUsecase: trainingUsecase,
-		UserUsecase:     userUsecase,
-		Messaging:       messaging,
+		Env:                  configVars,
+		Database:             database,
+		TrainingUsecase:      trainingUsecase,
+		UserUsecase:          userUsecase,
+		Messaging:            messaging,
+		NeuralNetworkUsecase: nnmodelUsecase,
 	}
 }
 

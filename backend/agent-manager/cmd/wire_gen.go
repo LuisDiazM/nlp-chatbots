@@ -8,6 +8,7 @@ package cmd
 
 import (
 	"github.com/LuisDiazM/agent-manager/cmd/config"
+	"github.com/LuisDiazM/agent-manager/domain/usecases/nnModelsUsecase"
 	"github.com/LuisDiazM/agent-manager/domain/usecases/trainingUsecase"
 	"github.com/LuisDiazM/agent-manager/domain/usecases/userUsecase"
 	"github.com/LuisDiazM/agent-manager/infraestructure/app"
@@ -32,6 +33,8 @@ func CreateApp() *app.Application {
 	userRepositoryGateway := repositories.NewUserRepository(databaseImp)
 	licensesRepoGateway := userRepository.NewUserLicenseMessagingRepository(natsImp)
 	userUsecase := userusecase.NewUserUsecase(userRepositoryGateway, licensesRepoGateway)
-	application := app.NewApplication(engine, env, databaseImp, trainingUsecase, userUsecase, natsImp)
+	nnModelsRepository := repositories.NewNeuralNetworkRepository(databaseImp)
+	neuralNetworkModelUsecase := nnModelsUsecase.NewNeuralNetworkModelUsecase(nnModelsRepository)
+	application := app.NewApplication(engine, env, databaseImp, trainingUsecase, userUsecase, natsImp, neuralNetworkModelUsecase)
 	return application
 }
