@@ -39,7 +39,7 @@ func (repository *TrainingNNModelsRepository) DeleteNNModelsByNluIntentId(nluInt
 		fmt.Println(err)
 		return err
 	}
-	err = repository.Nats.Conn.Publish(eventCreateNeuralNetworkModel, data)
+	err = repository.Nats.Conn.Publish(eventDeleteNeuralNetworkModel, data)
 	if err != nil {
 		fmt.Println(err)
 		return err

@@ -9,5 +9,6 @@ import (
 func NewNeuralNetworkRouter(group *gin.RouterGroup, app *app.Application) {
 
 	group.GET("/nn-models", controllers.GetNNModelsByTrainingId(app))
+	group.GET("/nn-response", controllers.GetChatbotReponsesByModel(app))
 
 }

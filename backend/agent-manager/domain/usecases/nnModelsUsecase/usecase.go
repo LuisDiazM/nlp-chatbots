@@ -8,13 +8,19 @@ import (
 )
 
 type NeuralNetworkModelUsecase struct {
-	DatabaseRepo repositories.NnModelsRepository
+	DatabaseRepo  repositories.NnModelsRepository
+	MessagingRepo repositories.NnModelsMessagingRepository
 }
 
-func NewNeuralNetworkModelUsecase(databaseRepo repositories.NnModelsRepository) *NeuralNetworkModelUsecase {
-	return &NeuralNetworkModelUsecase{DatabaseRepo: databaseRepo}
+func NewNeuralNetworkModelUsecase(databaseRepo repositories.NnModelsRepository, messagingRepo repositories.NnModelsMessagingRepository) *NeuralNetworkModelUsecase {
+	return &NeuralNetworkModelUsecase{DatabaseRepo: databaseRepo, MessagingRepo: messagingRepo}
 }
 
 func (usecase *NeuralNetworkModelUsecase) GetModelsByTrainingId(trainingId string, ctx context.Context) (*[]entities.NNModel, error) {
 	return usecase.DatabaseRepo.GetModelsByTrainingId(ctx, trainingId)
+}
+
+func (usecase *NeuralNetworkModelUsecase) GetChatbotResponsesByModelId(content string, modelId string) entities.ChatbotResponse {
+	response := usecase.MessagingRepo.TestingChatbot(content, modelId)
+	return entities.ChatbotResponse{ChatReponse: *response}
 }

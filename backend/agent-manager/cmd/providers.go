@@ -8,6 +8,7 @@ import (
 
 	repository "github.com/LuisDiazM/agent-manager/infraestructure/database/repositories"
 	"github.com/LuisDiazM/agent-manager/infraestructure/messaging"
+	nnModelMessagingRepo "github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/testingChatbotRepository"
 	trainingDataRepository "github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/trainingDataRepository"
 	messagingLicensesRepo "github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/userRepository"
 
@@ -34,3 +35,4 @@ var UserUsecaseProvider = wire.NewSet(userusecase.NewUserUsecase)
 
 var NeuralNetworkUsecaseProvider = wire.NewSet(neuralnetworkusecase.NewNeuralNetworkModelUsecase)
 var NeuralNetworkModelsRepoProvider = wire.NewSet(repository.NewNeuralNetworkRepository)
+var NeuralNetworkModelsRepoMessagingProvider = wire.NewSet(nnModelMessagingRepo.NewTestingNNModelsRepository)

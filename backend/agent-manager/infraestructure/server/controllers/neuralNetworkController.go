@@ -22,3 +22,13 @@ func GetNNModelsByTrainingId(app *app.Application) gin.HandlerFunc {
 		}
 	}
 }
+
+func GetChatbotReponsesByModel(app *app.Application) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		modelId := ctx.Query("modelId")
+		content := ctx.Query("content")
+
+		response := app.NeuralNetworkUsecase.GetChatbotResponsesByModelId(content, modelId)
+		ctx.JSON(http.StatusOK, response)
+	}
+}

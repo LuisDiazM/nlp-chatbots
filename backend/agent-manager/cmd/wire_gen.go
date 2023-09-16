@@ -15,6 +15,7 @@ import (
 	"github.com/LuisDiazM/agent-manager/infraestructure/database"
 	"github.com/LuisDiazM/agent-manager/infraestructure/database/repositories"
 	"github.com/LuisDiazM/agent-manager/infraestructure/messaging"
+	"github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/testingChatbotRepository"
 	"github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/trainingDataRepository"
 	"github.com/LuisDiazM/agent-manager/infraestructure/messaging/repositories/userRepository"
 	"github.com/LuisDiazM/agent-manager/infraestructure/server"
@@ -34,7 +35,8 @@ func CreateApp() *app.Application {
 	licensesRepoGateway := userRepository.NewUserLicenseMessagingRepository(natsImp)
 	userUsecase := userusecase.NewUserUsecase(userRepositoryGateway, licensesRepoGateway)
 	nnModelsRepository := repositories.NewNeuralNetworkRepository(databaseImp)
-	neuralNetworkModelUsecase := nnModelsUsecase.NewNeuralNetworkModelUsecase(nnModelsRepository)
+	nnModelsMessagingRepository := testingChatbotRepository.NewTestingNNModelsRepository(natsImp)
+	neuralNetworkModelUsecase := nnModelsUsecase.NewNeuralNetworkModelUsecase(nnModelsRepository, nnModelsMessagingRepository)
 	application := app.NewApplication(engine, env, databaseImp, trainingUsecase, userUsecase, natsImp, neuralNetworkModelUsecase)
 	return application
 }

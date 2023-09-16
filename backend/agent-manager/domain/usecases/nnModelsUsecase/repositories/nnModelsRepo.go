@@ -9,3 +9,7 @@ import (
 type NnModelsRepository interface {
 	GetModelsByTrainingId(ctx context.Context, trainingId string) (*[]entities.NNModel, error)
 }
+
+type NnModelsMessagingRepository interface {
+	TestingChatbot(content string, modelId string) *string
+}

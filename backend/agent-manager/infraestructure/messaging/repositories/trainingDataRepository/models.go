@@ -6,5 +6,5 @@ type TrainModelRequest struct {
 }
 
 type ModelIdRequest struct {
-	ModelId string `json:"model_id,omitempty"`
+	ModelId string `json:"training_id,omitempty"`
 }

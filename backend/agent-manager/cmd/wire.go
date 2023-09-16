@@ -23,6 +23,7 @@ func CreateApp() *app.Application {
 		UserUsecaseProvider,
 		NeuralNetworkUsecaseProvider,
 		NeuralNetworkModelsRepoProvider,
+		NeuralNetworkModelsRepoMessagingProvider,
 	)
 	return new(app.Application)
 }
