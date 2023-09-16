@@ -18,7 +18,7 @@ class ChatbotResponseUsecase:
 
     def chatbot_response(self, model_id: str, sentence: str):
         model_data = self.__get_model(model_id)
-        training_data = self.__get_training_data(model_data.trainingDataId)
+        training_data = self.__get_training_data(model_data.nluIntentId)
 
         tag = self.__classify_sentence(model_data.modelName, sentence)
 
