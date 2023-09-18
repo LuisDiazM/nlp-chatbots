@@ -1,0 +1,32 @@
+.formContainer {
+  input {
+    width: 80%;
+    margin-right: 17px;
+  }
+}
+
+.messagesBlock {
+  height: 340px;
+  overflow: auto;
+
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.userMessage {
+  padding: 12px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-align: start;
+  border: 1px solid rosybrown;
+  background-color: #efdbdb;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.chatbotMessage {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    padding: 12px;
+    text-align: end;
+}

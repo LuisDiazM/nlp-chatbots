@@ -16,17 +16,49 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import { ACCESS_TOKEN } from "../../../shared/utilities/constants";
+import { environment } from "../../../environments/environments";
+import useSWR from "swr";
+import { fetcher } from "../../utilities/fetcher";
+import TestingBotModal from "./modals/testingChatbot/testingBotContainer";
 
 interface TrainingModelProps {
   model: TrainingModel;
 }
 
+interface NNModels {
+  created: Date;
+  model_name: string;
+  nlu_intent_id: string;
+  user_id: string;
+  id: string;
+  bucket_name: string;
+}
+
 const TrainingModelCard: React.FC<TrainingModelProps> = ({ model }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openTestingBot, setOpenTestingBot] = useState(false);
+const [modelId, setModelId] = useState<string>("")
 
+  const handleClose = () => setOpenTestingBot(false);
 
   const token = sessionStorage.getItem(ACCESS_TOKEN);
+
+  const { data, isLoading } = useSWR<NNModels[]>(
+    `${environment.BACKEND_URL}/nn-models?trainingId=${model?.id}`,
+    (url) => fetcher(url, token ?? "")
+  );
+
+  const handleTestBot = () => {
+    const modelsSortedDescending = data?.sort(
+      (a, b) => Number(a.created) - Number(b.created)
+    );
+    if (modelsSortedDescending) {
+      const lastModel = modelsSortedDescending[modelsSortedDescending?.length - 1]
+      setOpenTestingBot(true);
+      setModelId(lastModel.id)
+    }
+  };
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -68,6 +100,12 @@ const TrainingModelCard: React.FC<TrainingModelProps> = ({ model }) => {
           <Button size="small" color="error" onClick={handleOpenDeleteModel}>
             Borrar
           </Button>
+          {!isLoading && (
+            <Button size="small" color="secondary" onClick={handleTestBot}>
+              {" "}
+              Probar bot
+            </Button>
+          )}
         </CardActions>
       </Card>
       <ModelData
@@ -93,6 +131,12 @@ const TrainingModelCard: React.FC<TrainingModelProps> = ({ model }) => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <TestingBotModal
+        closeTesting={handleClose}
+        isOpenTesting={openTestingBot}
+        modelId={modelId}
+      ></TestingBotModal>
     </>
   );
 };
