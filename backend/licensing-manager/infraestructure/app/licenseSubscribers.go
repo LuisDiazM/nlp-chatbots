@@ -11,7 +11,7 @@ import (
 	"github.com/nats-io/nats.go"
 )
 
-func CreateLicense(app *Application) {
+func CreateLicense(app *Application, ctx context.Context) {
 	_, err := app.Nats.Conn.QueueSubscribe(subjectCreateLicense, queueLicenseManager, func(msg *nats.Msg) {
 		fmt.Printf("message '%s': %s\n", msg.Subject, string(msg.Data))
 		var requestData RequestCreateLicense
@@ -29,7 +29,7 @@ func CreateLicense(app *Application) {
 			Type:      requestData.LicenseType,
 			Features:  entities.LicenseFeature{RateLimit: 1000, Trainings: 10},
 		}
-		result := app.LicenseUsecase.CreateLicense(license, context.TODO())
+		result := app.LicenseUsecase.CreateLicense(license, ctx)
 		log.Println(*result)
 	})
 	if err != nil {
@@ -37,7 +37,7 @@ func CreateLicense(app *Application) {
 	}
 }
 
-func GetLicense(app *Application) {
+func GetLicense(app *Application, ctx context.Context) {
 	_, err := app.Nats.Conn.QueueSubscribe(subjectGetLicense, queueLicenseManager, func(msg *nats.Msg) {
 		fmt.Printf("message '%s': %s\n", msg.Subject, string(msg.Data))
 		var requestData RequestLicense
@@ -45,7 +45,7 @@ func GetLicense(app *Application) {
 		if err != nil {
 			log.Println(err)
 		}
-		licenses := app.LicenseUsecase.GetLicensesByUserId(requestData.UserId, context.TODO())
+		licenses := app.LicenseUsecase.GetLicensesByUserId(requestData.UserId, ctx)
 		data, err := json.Marshal(licenses)
 		if err != nil {
 			log.Println(err)
@@ -60,9 +60,15 @@ func GetLicense(app *Application) {
 	}
 }
 
-func UpdateLicense(app *Application) {
+func IncrementLicenseUsage(app *Application, ctx context.Context) {
 	_, err := app.Nats.Conn.QueueSubscribe(subjectUpdateLicense, queueLicenseManager, func(msg *nats.Msg) {
 		fmt.Printf("Recibido mensaje en '%s': %s\n", msg.Subject, string(msg.Data))
+		var requestData RequestIncrementLicenseUsage
+		err := json.Unmarshal(msg.Data, &requestData)
+		if err != nil {
+			log.Println(err)
+		}
+		app.LicenseUsecase.IncrementLicenseUsage(requestData.UserId, requestData.Feature, ctx)
 	})
 	if err != nil {
 		log.Printf("Error al suscribirse: %v", err)

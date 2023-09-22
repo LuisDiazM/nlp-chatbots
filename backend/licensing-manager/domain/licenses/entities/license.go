@@ -4,6 +4,13 @@ import (
 	"time"
 )
 
+type Feature string
+
+const (
+	RateLimit Feature = "RATE_LIMIT"
+	Trainings Feature = "TRAININGS"
+)
+
 type LicenseFeature struct {
 	RateLimit int `json:"rate_limit,omitempty" bson:"rateLimit"`
 	Trainings int `json:"trainings,omitempty" bson:"trainings"`

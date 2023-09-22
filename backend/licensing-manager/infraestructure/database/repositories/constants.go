@@ -1,6 +1,7 @@
 package repositories
 
 const (
-	databaseName       = "licenseManager"
-	collectionLicenses = "licenses"
+	databaseName            = "licenseManager"
+	collectionLicenses      = "licenses"
+	collectionLicensesUsage = "licensesUsage"
 )

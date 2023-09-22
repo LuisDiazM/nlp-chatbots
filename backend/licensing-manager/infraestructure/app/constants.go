@@ -4,6 +4,6 @@ const (
 	queueLicenseManager  = "licenseManager"
 	subjectCreateLicense = "license.create"
 	subjectGetLicense    = "license.get"
-	subjectUpdateLicense = "license.update"
+	subjectUpdateLicense = "license.update.usage"
 	subjectDeleteLicense = "license.delete"
 )

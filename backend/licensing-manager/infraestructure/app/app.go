@@ -33,7 +33,7 @@ func NewApplication(envs *config.Env, natsImp *messaging.NatsImp, database *data
 func (app *Application) Start(ctx context.Context) {
 	defer app.Nats.CloseConnection()
 	log.Println("Start app licensing-manager")
-	app.RunSubscribers()
+	app.RunSubscribers(ctx)
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 	<-sigChan

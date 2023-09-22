@@ -1,6 +1,9 @@
 package app
 
-func (app *Application) RunSubscribers() {
-	CreateLicense(app)
-	GetLicense(app)
+import "context"
+
+func (app *Application) RunSubscribers(ctx context.Context) {
+	CreateLicense(app, ctx)
+	GetLicense(app, ctx)
+	IncrementLicenseUsage(app, ctx)
 }
