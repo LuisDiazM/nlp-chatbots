@@ -27,8 +27,9 @@ func GetChatbotReponsesByModel(app *app.Application) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		modelId := ctx.Query("modelId")
 		content := ctx.Query("content")
+		userId := ctx.Query("userId")
 
-		response := app.NeuralNetworkUsecase.GetChatbotResponsesByModelId(content, modelId)
+		response := app.NeuralNetworkUsecase.GetChatbotResponsesByModelId(content, modelId, userId)
 		ctx.JSON(http.StatusOK, response)
 	}
 }

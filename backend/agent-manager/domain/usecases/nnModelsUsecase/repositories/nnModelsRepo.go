@@ -11,5 +11,5 @@ type NnModelsRepository interface {
 }
 
 type NnModelsMessagingRepository interface {
-	TestingChatbot(content string, modelId string) *string
+	TestingChatbot(content string, modelId string, userId string) *string
 }

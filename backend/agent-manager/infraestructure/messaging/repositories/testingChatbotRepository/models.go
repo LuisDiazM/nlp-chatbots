@@ -10,4 +10,5 @@ const (
 type TestingChatbotRequest struct {
 	Sentence string `json:"sentence,omitempty"`
 	ModelId  string `json:"model_id,omitempty"`
+	UserId   string `json:"user_id,omitempty"`
 }

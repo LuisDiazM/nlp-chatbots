@@ -16,8 +16,8 @@ func NewTestingNNModelsRepository(nats *messaging.NatsImp) repositories.NnModels
 	return &TestingNNModelsRepository{Nats: nats}
 }
 
-func (repository *TestingNNModelsRepository) TestingChatbot(content string, modelId string) *string {
-	var testingChatbotRequest TestingChatbotRequest = TestingChatbotRequest{Sentence: content, ModelId: modelId}
+func (repository *TestingNNModelsRepository) TestingChatbot(content string, modelId string, userId string) *string {
+	var testingChatbotRequest TestingChatbotRequest = TestingChatbotRequest{Sentence: content, ModelId: modelId, UserId: userId}
 	data, err := json.Marshal(testingChatbotRequest)
 	if err != nil {
 		log.Println(err)

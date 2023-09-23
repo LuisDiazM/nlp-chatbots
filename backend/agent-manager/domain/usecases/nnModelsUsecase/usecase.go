@@ -20,7 +20,7 @@ func (usecase *NeuralNetworkModelUsecase) GetModelsByTrainingId(trainingId strin
 	return usecase.DatabaseRepo.GetModelsByTrainingId(ctx, trainingId)
 }
 
-func (usecase *NeuralNetworkModelUsecase) GetChatbotResponsesByModelId(content string, modelId string) entities.ChatbotResponse {
-	response := usecase.MessagingRepo.TestingChatbot(content, modelId)
+func (usecase *NeuralNetworkModelUsecase) GetChatbotResponsesByModelId(content string, modelId string, userId string) entities.ChatbotResponse {
+	response := usecase.MessagingRepo.TestingChatbot(content, modelId, userId)
 	return entities.ChatbotResponse{ChatReponse: *response}
 }
