@@ -37,3 +37,17 @@ class StorageGateway(ABC):
     @abstractmethod
     def delete_file(self, path: str) -> bool:
         pass
+
+class Messaging(ABC):
+    
+    @abstractmethod
+    async def publish_event(self, subject:str, data:Dict) -> None:
+        pass
+
+    @abstractmethod
+    async def set_up(self):
+        pass
+
+    @abstractmethod
+    async def shutdown(self):
+        pass

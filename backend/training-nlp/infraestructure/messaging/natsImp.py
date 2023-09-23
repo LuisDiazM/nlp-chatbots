@@ -1,6 +1,7 @@
+import json
 from multiprocessing.connection import Client
 import os
-from typing import Any, Coroutine
+from typing import Any, Coroutine, Dict
 import nats
 from domain.helpers.loggers import logger
 
@@ -17,4 +18,8 @@ class NatsImp:
             logger.error(f"{str(e)}")
 
     async def shutdown(self):
-        await self.client.drain()
+        await self.client.close()
+
+    async def publish_event(self, subject:str, data:Dict) -> None:
+        await self.client.publish(subject, json.dumps(data).encode())
+        logger.info(f"publish notification {subject} {data}")

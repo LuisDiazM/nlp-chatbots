@@ -23,3 +23,17 @@ class StorageGateway(ABC):
     @abstractmethod
     def download(self, object_name:str) -> None:
         pass
+
+class Messaging(ABC):
+    
+    @abstractmethod
+    async def publish_event(self, subject:str, data:Dict) -> None:
+        pass
+
+    @abstractmethod
+    async def set_up(self):
+        pass
+
+    @abstractmethod
+    async def shutdown(self):
+        pass

@@ -3,21 +3,22 @@ import torch
 from domain.models.dto.training_model import TrainingModel
 from domain.models.dto.models import ModelsDTO
 from domain.helpers.constants import COLLECTION_MODELS, COLLECTION_TRAINING, DATABASE_TRAINING
-from infraestructure.database.mongoImp import MongoImp
+from infraestructure.gateways import DatabaseGateway, StorageGateway
 from infraestructure.neural_networks.nn_models.nn_model import NeuralNet
 from infraestructure.preprocessing.nlp_preprocessing import PreprocessingNLP
-from infraestructure.storage.s3Imp import S3Imp
-
+from datetime import datetime
 
 class ChatbotResponseUsecase:
 
-    def __init__(self, storage_gateway: S3Imp, preprocessing_nlp: PreprocessingNLP, database_gateway: MongoImp) -> None:
+    def __init__(self, storage_gateway: StorageGateway, preprocessing_nlp: PreprocessingNLP, database_gateway: DatabaseGateway) -> None:
         self.storage_gateway = storage_gateway
         self.preprocessing_nlp = preprocessing_nlp
         self.database_gateway = database_gateway
 
     def chatbot_response(self, model_id: str, sentence: str):
         model_data = self.__get_model(model_id)
+        if model_data.nluIntentId == "":
+            return ""
         training_data = self.__get_training_data(model_data.nluIntentId)
 
         tag = self.__classify_sentence(model_data.modelName, sentence)
@@ -32,6 +33,8 @@ class ChatbotResponseUsecase:
     def __get_model(self, id: str) -> ModelsDTO:
         model_data = self.database_gateway.find_by_id(
             id, DATABASE_TRAINING, COLLECTION_MODELS)
+        if model_data is None:
+            return ModelsDTO(bucketName="",created=datetime.now(), modelName="",nluIntentId="",userId="")
         return ModelsDTO(**model_data)
 
     def __get_training_data(self, training_data_id: str):

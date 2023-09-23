@@ -5,6 +5,7 @@ from cmd.di import Container
 from dependency_injector.wiring import Provide, inject
 from domain.helpers.constants import (QUEUE_MANAGE_MODELS, QUEUE_TRAINING_NLP, SUBSCRIPTION_REMOVE_MODELS, SUBSCRIPTION_REMOVE_MODELS_BY_USER,
                                       SUBSCRIPTION_TRAINING_MODEL_COMMAND)
+from domain.usecases.notifications_usecase import EventNotificationUsecase
 from domain.usecases.storage_models_usecase import StorageModelsUsecase
 from domain.usecases.training_usecase import TrainingUsecase
 from infraestructure.messaging.controller.handlers import \
@@ -15,10 +16,11 @@ set_env()
 
 @inject
 async def main(training_usecase: TrainingUsecase = Provide[Container.training_usecase],
-               storage_usecase: StorageModelsUsecase = Provide[Container.storage_usecase]):
+               storage_usecase: StorageModelsUsecase = Provide[Container.storage_usecase],
+               notification_usecase: EventNotificationUsecase = Provide[Container.notification_usecase]):
 
     controllers_instance = ControllerSubscriptions(
-        training_usecase, storage_usecase)
+        training_usecase, storage_usecase, notification_usecase)
 
     # NATS client listen connections
     nats_instance = NatsImp()
