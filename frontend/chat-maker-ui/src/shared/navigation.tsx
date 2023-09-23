@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -20,13 +20,13 @@ const Navigation = () => {
   const dispatcher = useDispatch();
   const handleLogoutApp = () => {
     logout();
-    dispatcher(resetAuth())
+    dispatcher(resetAuth());
     dispatcher(resetUser());
     navigate("/");
   };
 
   return (
-    <div style={{ marginBottom: "5%" }}>
+    <div>
       <Box sx={{ width: 500, margin: "auto" }}>
         <BottomNavigation
           showLabels
@@ -56,7 +56,11 @@ const Navigation = () => {
           {!isUserLogin && (
             <BottomNavigationAction
               label="Usuario"
-              icon={<AccountCircleIcon />}
+              icon={
+                <Link to={"/user"}>
+                  <AccountCircleIcon />
+                </Link>
+              }
             />
           )}
 

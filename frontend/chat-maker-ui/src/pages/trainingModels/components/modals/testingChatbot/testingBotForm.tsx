@@ -7,7 +7,7 @@ import {
   updateMessages,
 } from "../../../../../redux/states/messages";
 import { ACCESS_TOKEN } from "../../../../../shared/utilities/constants";
-import { getTestChatbot } from "../../../../utilities/testChatbot";
+import { getTestChatbot } from "../../../../../shared/utilities/testChatbot";
 import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from "@mui/material";
 

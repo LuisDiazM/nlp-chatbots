@@ -1,6 +1,6 @@
 import { Box, Modal } from "@mui/material";
 import React from "react";
-import { TrainingModel } from "../../utilities/trainingModels";
+import { TrainingModel } from "../../../shared/utilities/trainingModels";
 import TrainingChatbotForm from "./forms/trainingForm";
 
 const style = {

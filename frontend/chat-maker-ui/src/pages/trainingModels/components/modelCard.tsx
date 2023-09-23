@@ -8,7 +8,7 @@ import {
 import {
   TrainingModel,
   deleteTrainingModel,
-} from "../../utilities/trainingModels";
+} from "../../../shared/utilities/trainingModels";
 import ModelData from "./modelData";
 import { useState } from "react";
 
@@ -18,7 +18,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { ACCESS_TOKEN } from "../../../shared/utilities/constants";
 import { environment } from "../../../environments/environments";
 import useSWR from "swr";
-import { fetcher } from "../../utilities/fetcher";
+import { fetcher } from "../../../shared/utilities/fetcher";
 import TestingBotModal from "./modals/testingChatbot/testingBotContainer";
 
 interface TrainingModelProps {

@@ -56,3 +56,16 @@ export const deleteTrainingModel = async (
   });
   return response.data as TrainingModel[];
 };
+
+export const deleteUserAndTrainingModels = async (
+  token: string,
+  userId: string
+) => {
+  const URL = environment.BACKEND_URL;
+  const response = await axios.delete(`${URL}/training-models/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data as TrainingModel[];
+};

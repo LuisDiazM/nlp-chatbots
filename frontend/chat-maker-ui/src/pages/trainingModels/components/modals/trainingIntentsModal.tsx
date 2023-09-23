@@ -5,7 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import { useState } from "react";
 import React from "react";
 import TrainingChatbotForm from "../forms/trainingForm";
-import { TrainingModel } from "../../../utilities/trainingModels";
+import { TrainingModel } from "../../../../shared/utilities/trainingModels";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",

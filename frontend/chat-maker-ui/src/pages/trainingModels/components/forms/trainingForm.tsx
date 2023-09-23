@@ -20,7 +20,7 @@ import {
   TrainingModel,
   createTrainingModel,
   updateTrainingModel,
-} from "../../../utilities/trainingModels";
+} from "../../../../shared/utilities/trainingModels";
 import { useSelector } from "react-redux";
 import { CircularProgress } from "@mui/material";
 import { ACCESS_TOKEN } from "../../../../shared/utilities/constants";
@@ -81,6 +81,7 @@ const TrainingChatbotForm: React.FC<TrainingFormData> = ({
                   name="description"
                   as="textarea"
                 ></Field>
+                <div className={styles.intentsContainer}>
                 <FieldArray name="intents">
                   {(intentsFields: {
                     remove: (arg0: number) => void;
@@ -244,6 +245,7 @@ const TrainingChatbotForm: React.FC<TrainingFormData> = ({
                     </>
                   )}
                 </FieldArray>
+                </div>
               </div>
               {isLoading && <CircularProgress />}
               {!isLoading && (

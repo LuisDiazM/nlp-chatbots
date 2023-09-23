@@ -2,10 +2,10 @@ import { Box, CircularProgress } from "@mui/material";
 
 import TrainingIntentsModal from "./modals/trainingIntentsModal";
 import { useSelector } from "react-redux";
-import { TrainingModel } from "../../utilities/trainingModels";
+import { TrainingModel } from "../../../shared/utilities/trainingModels";
 import TrainingModelCard from "./modelCard";
 import useSWR from "swr";
-import { fetcher } from "../../utilities/fetcher";
+import { fetcher } from "../../../shared/utilities/fetcher";
 import { environment } from "../../../environments/environments";
 import { ACCESS_TOKEN } from "../../../shared/utilities/constants";
 
