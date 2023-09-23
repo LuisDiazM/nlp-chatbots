@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import styles from "./testingChatbot.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   MessagesDataEvent,
   OriginMessage,
@@ -24,6 +24,8 @@ const TestingBotForm = ({ modelId }: TestingBotFormProps) => {
   const dispatcher = useDispatch();
   const token = sessionStorage.getItem(ACCESS_TOKEN)??"";
 
+  const userData = useSelector((store: any) => store.user)
+  const userId = userData?.email ?? ""
   const initialValuesForm: TestingBotFormData = {
     content: "",
     modelId: modelId,
@@ -37,7 +39,7 @@ const TestingBotForm = ({ modelId }: TestingBotFormProps) => {
       text: values.content,
     };
     dispatcher(updateMessages(userMessage));
-    const chatResponse = await getTestChatbot(token, values.modelId, values.content)
+    const chatResponse = await getTestChatbot(token, values.modelId, values.content, userId)
     const dateBot = new Date()
     const chatbotMessage: MessagesDataEvent = {
       date: `${dateBot.getHours()}:${dateBot.getSeconds()}`,

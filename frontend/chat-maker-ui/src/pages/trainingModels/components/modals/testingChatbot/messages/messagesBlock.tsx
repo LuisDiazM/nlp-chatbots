@@ -8,8 +8,8 @@ const MessagesBlock = () => {
 
   return (
     <div className={styles.messagesBlock}>
-      {messages?.messages?.map((message: MessagesDataEvent) => {
-        return <MessagesFactory message={message}></MessagesFactory>;
+      {messages?.messages?.map((message: MessagesDataEvent, index:number) => {
+        return <MessagesFactory key={index} message={message}></MessagesFactory>;
       })}
     </div>
   );
