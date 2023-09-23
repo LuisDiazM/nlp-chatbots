@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"github.com/LuisDiazM/agent-manager/cmd/config"
 	nnmodelusecase "github.com/LuisDiazM/agent-manager/domain/usecases/nnModelsUsecase"
@@ -45,5 +46,7 @@ func (app *Application) Start(ctx context.Context) error {
 		}
 		return nil
 	})
+	log.Println("agent manager started ...")
+
 	return g.Wait()
 }

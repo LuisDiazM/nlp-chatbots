@@ -53,5 +53,46 @@ func (repository *UserLicensesMessagingRepository) CreateLicenseByUser(userId st
 		return err
 	}
 	return nil
+}
 
+func (repository *UserLicensesMessagingRepository) GetLastLicensesByUser(userId string) *entities.License {
+	var getLicenseRequest RequestGetLicenses = RequestGetLicenses{UserId: userId}
+	data, err := json.Marshal(getLicenseRequest)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	msg, err := repository.Nats.Conn.Request(queryGetLastLicense, data, timeout)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	var license entities.License
+	err = json.Unmarshal(msg.Data, &license)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	return &license
+}
+
+func (repository *UserLicensesMessagingRepository) GetLastLicensesUsage(licenseId string) *entities.LicensesUsage {
+	var getLicenseRequest RequestGetLicenseUsage = RequestGetLicenseUsage{LicenseId: licenseId}
+	data, err := json.Marshal(getLicenseRequest)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	msg, err := repository.Nats.Conn.Request(queryGetLicenseUsage, data, timeout)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	var license entities.LicensesUsage
+	err = json.Unmarshal(msg.Data, &license)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	return &license
 }

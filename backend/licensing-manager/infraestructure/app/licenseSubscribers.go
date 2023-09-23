@@ -74,3 +74,49 @@ func IncrementLicenseUsage(app *Application, ctx context.Context) {
 		log.Printf("Error al suscribirse: %v", err)
 	}
 }
+
+func GetLastLicense(app *Application, ctx context.Context) {
+	_, err := app.Nats.Conn.QueueSubscribe(subjectGetLastLicenseByUser, queueLicenseManager, func(msg *nats.Msg) {
+		fmt.Printf("message '%s': %s\n", msg.Subject, string(msg.Data))
+		var requestData RequestLicense
+		err := json.Unmarshal(msg.Data, &requestData)
+		if err != nil {
+			log.Println(err)
+		}
+		license := app.LicenseUsecase.GetLastLicenseByUserId(requestData.UserId, ctx)
+		data, err := json.Marshal(license)
+		if err != nil {
+			log.Println(err)
+		}
+		err = msg.Respond(data)
+		if err != nil {
+			log.Println(err)
+		}
+	})
+	if err != nil {
+		log.Printf("Error al suscribirse: %v", err)
+	}
+}
+
+func GetLastLicenseUsage(app *Application, ctx context.Context) {
+	_, err := app.Nats.Conn.QueueSubscribe(subjectGetLicenseUsage, queueLicenseManager, func(msg *nats.Msg) {
+		fmt.Printf("message '%s': %s\n", msg.Subject, string(msg.Data))
+		var requestData RequestLicenseUsage
+		err := json.Unmarshal(msg.Data, &requestData)
+		if err != nil {
+			log.Println(err)
+		}
+		license := app.LicenseUsecase.GetLastLicenseUsageByLicenseId(requestData.LicenseId, ctx)
+		data, err := json.Marshal(license)
+		if err != nil {
+			log.Println(err)
+		}
+		err = msg.Respond(data)
+		if err != nil {
+			log.Println(err)
+		}
+	})
+	if err != nil {
+		log.Printf("Error al suscribirse: %v", err)
+	}
+}

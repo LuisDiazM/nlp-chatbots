@@ -14,5 +14,6 @@ func NewTrainingRouter(group *gin.RouterGroup, app *app.Application) {
 	group.DELETE("/training-model/:id", controllers.DeleteTrainingModelInfo(app))
 	group.PUT("/training-model/:id", controllers.UpdateTrainingModelInfoById(app))
 	group.GET("training-model", controllers.GetModelsByUserId(app))
+	group.DELETE("/training-models/:userId", controllers.DeleteModelsByUserId(app))
 
 }

@@ -42,3 +42,14 @@ func (userRepository *UserRepository) GetUserById(id string, ctx context.Context
 	}
 	return &userInfo
 }
+
+func (repository *UserRepository) DeleteUserById(id string, ctx context.Context) error {
+	collection := repository.Database.Collection(trainingDatabaseName, userCollectionName)
+	filter := bson.M{"_id": id}
+	_, err := collection.DeleteOne(ctx, filter)
+	if err != nil {
+		log.Println("mongo -> DeleteOne", err)
+		return nil
+	}
+	return nil
+}

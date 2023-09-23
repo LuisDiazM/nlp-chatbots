@@ -95,3 +95,17 @@ func (repository *LicenseRepository) IncrementLicenseUsageByFeature(license enti
 	}
 	return nil
 }
+
+func (repository *LicenseRepository) GetLastLicenseUsageById(licenseId string, ctx *context.Context) *entities.LicensesUsage {
+	collection := repository.Db.Collection(databaseName, collectionLicensesUsage)
+	filter := primitive.M{"licenseId": licenseId}
+	optionsSort := options.FindOne().SetSort(bson.M{"year": -1})
+	result := collection.FindOne(*ctx, filter, optionsSort)
+	var license entities.LicensesUsage
+	err := result.Decode(&license)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	return &license
+}

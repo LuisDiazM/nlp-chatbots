@@ -45,5 +45,20 @@ func (repository *TrainingNNModelsRepository) DeleteNNModelsByNluIntentId(nluInt
 		return err
 	}
 	return nil
+}
+
+func (repository *TrainingNNModelsRepository) DeleteNNModelsByUserId(userId string) error {
+	requestData := UserIdRequest{UserId: userId}
+	data, err := json.Marshal(requestData)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	err = repository.Nats.Conn.Publish(eventDeleteNeuralNetworkModelByUserId, data)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	return nil
 
 }

@@ -33,3 +33,11 @@ func (usecase *LicenseUsecase) IncrementLicenseUsage(userId string, feature enti
 		}
 	}
 }
+
+func (usecase *LicenseUsecase) GetLastLicenseByUserId(userId string, ctx context.Context) *entities.License {
+	return usecase.repository.GetLastLicenseByUserId(userId, &ctx)
+}
+
+func (usecase *LicenseUsecase) GetLastLicenseUsageByLicenseId(licenseId string, ctx context.Context) *entities.LicensesUsage {
+	return usecase.repository.GetLastLicenseUsageById(licenseId, &ctx)
+}

@@ -15,3 +15,7 @@ type RequestIncrementLicenseUsage struct {
 	UserId  string           `json:"user_id,omitempty"`
 	Feature entities.Feature `json:"feature,omitempty"`
 }
+
+type RequestLicenseUsage struct {
+	LicenseId string `json:"license_id,omitempty"`
+}

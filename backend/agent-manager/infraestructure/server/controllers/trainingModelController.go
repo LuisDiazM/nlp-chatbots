@@ -87,3 +87,16 @@ func GetModelsByUserId(app *app.Application) gin.HandlerFunc {
 		}
 	}
 }
+
+func DeleteModelsByUserId(app *app.Application) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		id, _ := ctx.Params.Get("userId")
+		err := app.UserUsecase.DeleteUserById(id, ctx)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, err)
+		} else {
+			_ = app.TrainingUsecase.DeleteNNModelsByUserId(id, ctx)
+			ctx.JSON(http.StatusNoContent, nil)
+		}
+	}
+}

@@ -57,3 +57,11 @@ func (usecase *TrainingUsecase) UpdateTrainingIntentById(id string, data entitie
 func (usecase *TrainingUsecase) GetModelsByUserId(userId string, ctx context.Context) (*[]entities.TrainingInfo, error) {
 	return usecase.TrainingRepository.GetModelsByUserId(ctx, userId)
 }
+
+func (usecase *TrainingUsecase) DeleteNNModelsByUserId(userId string, ctx context.Context) error {
+	models, _ := usecase.TrainingRepository.GetModelsByUserId(ctx, userId)
+	for _, model := range *models {
+		usecase.TrainingRepository.DeleteTrainingModel(model.Id, ctx)
+	}
+	return usecase.TrainingMessagingRepository.DeleteNNModelsByUserId(userId)
+}

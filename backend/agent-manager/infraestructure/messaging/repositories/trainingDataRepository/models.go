@@ -8,3 +8,7 @@ type TrainModelRequest struct {
 type ModelIdRequest struct {
 	ModelId string `json:"training_id,omitempty"`
 }
+
+type UserIdRequest struct {
+	UserId string `json:"user_id,omitempty"`
+}

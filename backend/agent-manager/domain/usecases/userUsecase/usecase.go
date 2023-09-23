@@ -54,3 +54,15 @@ func (usecase *UserUsecase) InsertUser(user entities.User, ctx context.Context) 
 	}
 	return nil
 }
+
+func (usecase *UserUsecase) GetLastLicenseByUserId(userId string) *entities.License {
+	return usecase.MessagingRepository.GetLastLicensesByUser(userId)
+}
+
+func (usecase *UserUsecase) GetLastLicenseUsage(licenseId string) *entities.LicensesUsage {
+	return usecase.MessagingRepository.GetLastLicensesUsage(licenseId)
+}
+
+func (usecase *UserUsecase) DeleteUserById(userId string, ctx context.Context) error {
+	return usecase.DatabaseRepository.DeleteUserById(userId, ctx)
+}
