@@ -31,7 +31,7 @@ const Navigation = () => {
         <BottomNavigation
           showLabels
           value={value}
-          onChange={(event, newValue) => {
+          onChange={(_, newValue) => {
             setValue(newValue);
           }}
         >

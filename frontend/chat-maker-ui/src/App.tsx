@@ -9,7 +9,6 @@ import { store } from "./redux/store";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { environment } from "./environments/environments";
 import HomePage from "./pages/home/homePage";
-import ProtectedRoutes from "./auth/protectedRoutes";
 import TrainingChatPage from "./pages/trainingModels/trainingChat";
 import LoginPage from "./pages/login/loginPage";
 import RegisterPage from "./pages/login/registerPage";
