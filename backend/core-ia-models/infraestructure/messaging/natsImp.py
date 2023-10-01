@@ -12,7 +12,9 @@ class NatsImp:
 
     async def set_up(self):
         try:
-            self.client = await nats.connect(os.getenv("NATS_URL"))
+            url = f"nats://{os.getenv('NATS_URL')}:{os.getenv('NATS_PORT')}"
+            logger.info(url)
+            self.client = await nats.connect(url)
             logger.info("NATS connected")
         except Exception as e:
             logger.error(str(e))

@@ -7,7 +7,6 @@ from domain.helpers.constants import QUEUE_CORE_IA, SUBSCRIPTION_CHATBOT_RESPONS
 from infraestructure.messaging.controllers.handlers import ChatbotResponseHandler
 from infraestructure.messaging.natsImp import NatsImp
 from domain.helpers.loggers import logger
-set_env()
 
 @inject
 async def main(chatbot_usecase: ChatbotResponseUsecase = Provide[Container.chatbot_usecase]):

@@ -1,6 +1,7 @@
 package messaging
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/LuisDiazM/agent-manager/cmd/config"
@@ -12,7 +13,9 @@ type NatsImp struct {
 }
 
 func NewNatsImplementation(env *config.Env) *NatsImp {
-	nc, err := nats.Connect(env.NATS_URL)
+	url := fmt.Sprintf(`nats://%s:%s`, env.NATS_URL, env.NATS_PORT)
+	log.Println(url)
+	nc, err := nats.Connect(url)
 	if err != nil {
 		log.Fatalln(err)
 	}

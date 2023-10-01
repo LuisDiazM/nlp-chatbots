@@ -13,7 +13,9 @@ class MongoImp(DatabaseGateway):
 
     def set_up(self) -> None:
         try:
-            self.client = MongoClient(os.getenv("MONGO_URL"))
+            url = f"mongodb://{os.getenv('MONGO_USER')}:{os.getenv('MONGO_PASSWORD')}@{os.getenv('MONGO_URL')}:{os.getenv('MONGO_PORT')}"
+            logger.info(url)
+            self.client = MongoClient(url)
             logger.info("Mongo connected")
         except Exception as e:
             logger.error(str(e))

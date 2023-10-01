@@ -13,7 +13,9 @@ class MongoImp:
         logger.info(f"connection Mongo successfull")
 
     def set_up(self) -> None:
-        self.client = MongoClient(os.getenv("MONGO_URL"))
+        url = f"mongodb://{os.getenv('MONGO_USER')}:{os.getenv('MONGO_PASSWORD')}@{os.getenv('MONGO_URL')}:{os.getenv('MONGO_PORT')}"
+        logger.info(url)
+        self.client = MongoClient(url)
 
     def find_by_id(self, id: str, database: str, collection: str) -> Dict:
         col = self.client.get_database(

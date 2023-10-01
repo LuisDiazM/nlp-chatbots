@@ -12,7 +12,6 @@ from infraestructure.messaging.controller.handlers import \
     ControllerSubscriptions
 from infraestructure.messaging.natsImp import NatsImp
 from domain.helpers.loggers import logger
-set_env()
 
 @inject
 async def main(training_usecase: TrainingUsecase = Provide[Container.training_usecase],

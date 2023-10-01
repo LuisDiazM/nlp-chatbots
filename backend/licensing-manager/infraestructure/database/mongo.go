@@ -2,6 +2,7 @@ package database
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -20,7 +21,9 @@ func NewDatabaseImplementation(environment *config.Env) *DatabaseImp {
 	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	opt := options.Client()
 	opt.SetMaxPoolSize(environment.MONGO_POOL_SIZE)
-	opt.ApplyURI(environment.MONGO_URL)
+	url := fmt.Sprintf(`mongodb://%s:%s@%s:%s`, environment.MONGO_USER, environment.MONGO_PASSWORD, environment.MONGO_URL, environment.MONGO_PORT)
+	log.Println(url)
+	opt.ApplyURI(url)
 	client, err := mongo.Connect(ctx, opt)
 	if err != nil {
 		log.Fatal(err)
