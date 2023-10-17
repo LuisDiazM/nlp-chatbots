@@ -7,9 +7,8 @@ services:
     restart: always
     mem_limit: 512m
     cpus: 0.5
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: fhasgkr867fa654
+    env_file:
+      - .env
     ports:
       - 27017:27017
     volumes:
@@ -20,6 +19,8 @@ services:
     image: agent-manager:v1
     restart: always
     cpus: 0.5
+    env_file:
+      - .env
     ports:
       - 8080:8080
     depends_on: 
@@ -39,6 +40,8 @@ services:
     image: license-manager:v1
     restart: always
     cpus: 0.5
+    env_file:
+      - .env
     depends_on: 
       - mongo
       - nats-server
@@ -47,6 +50,8 @@ services:
     build: backend/training-nlp/.
     image: training-nlp:v1
     restart: always
+    env_file:
+      - .env
     depends_on: 
       - mongo
       - nats-server
@@ -56,6 +61,8 @@ services:
     build: backend/core-ia-models/.
     image: core-ia-models:v1
     restart: always
+    env_file:
+      - .env
     depends_on: 
       - mongo
       - nats-server

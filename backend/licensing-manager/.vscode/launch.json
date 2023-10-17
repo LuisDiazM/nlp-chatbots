@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "auto",
             "program": "main.go",
-            "envFile": "E:\\Luis Miguel\\repositories\\nlp-chatbots\\backend\\agent-manager/cmd/config/.env"
+            "envFile": "E:\\Luis Miguel\\repositories\\nlp-chatbots\\backend\\licensing-manager/cmd/config/.env"
         }
     ]
 }
